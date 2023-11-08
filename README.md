@@ -1,4 +1,4 @@
-## Hunter
+**Project Title: `Hunter`**
 
 ---
 
