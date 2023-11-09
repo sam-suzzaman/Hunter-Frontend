@@ -17,5 +17,7 @@ body {
     --color-primary: #ac04ac;
     --color-secondary: #c714c7;
     --color-white: #fff;
-    --shadow-1: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    --shadow-dark: rgba(0, 0, 0, 0.3);
+    --shadow-medium: rgba(0, 0, 0, 0.2);
+    --shadow-light: rgba(0, 0, 0, 0.1);
 }
