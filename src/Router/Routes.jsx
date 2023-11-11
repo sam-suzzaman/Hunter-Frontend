@@ -3,7 +3,18 @@ import HomeLayout from "../Layout/HomeLayout";
 import DashboardLayout from "../Layout/DashboardLayout";
 
 // Pages
-import { Register, Login, Landing, Error } from "../pages";
+import {
+    Register,
+    Login,
+    Landing,
+    Error,
+    AllJobs,
+    Stats,
+    Profile,
+    Admin,
+    EditJob,
+    AddJob,
+} from "../pages";
 
 const router = createBrowserRouter([
     {
@@ -26,6 +37,35 @@ const router = createBrowserRouter([
             {
                 path: "dashboard",
                 element: <DashboardLayout></DashboardLayout>,
+                children: [
+                    {
+                        index: true,
+                        element: <AddJob />,
+                    },
+                    {
+                        path: "stats",
+                        element: <Stats />,
+                    },
+                    {
+                        path: "all-jobs",
+                        element: <AllJobs />,
+                    },
+                    {
+                        path: "profile",
+                        element: <Profile />,
+                    },
+                    {
+                        path: "admin",
+                        element: <Admin />,
+                    },
+                    {
+                        path: "edit-job/:id",
+                        element: <EditJob />,
+                    },
+                    {
+                        path: "delete-job/:id",
+                    },
+                ],
             },
         ],
     },
