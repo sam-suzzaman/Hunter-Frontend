@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Wrapper from "../assets/css/wrappers/LandingPage";
 import { Link } from "react-router-dom";
 import photo from "../assets/media/LandingPage/hero.png";
 import Navbar from "../components/shared/Navbar";
 
 const Landing = () => {
+    const navbarRef = useRef(null);
+    const heroRef = useRef(null);
+
+    useEffect(() => {
+        const navbarHeight = navbarRef.current.getBoundingClientRect().height;
+        heroRef.current.style.minHeight = `calc(100vh - ${navbarHeight}px)`;
+    }, []);
     return (
         <>
-            <Navbar />
-            <Wrapper>
+            <Navbar navbarRef={navbarRef} />
+            <Wrapper ref={heroRef}>
                 <div className="hero-content">
                     <div className="text-content">
                         <h1>

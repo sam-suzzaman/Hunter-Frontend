@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import Logo from "../Logo";
 
-const Navbar = () => {
+const Navbar = ({ navbarRef }) => {
     return (
-        <Wrapper>
+        <Wrapper ref={navbarRef}>
             <div className="container">
                 <Logo />
             </div>
