@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { BiMenuAltLeft } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
 import Logo from "../Logo";
+import { useDashboardContext } from "../../Layout/DashboardLayout";
 
 const DashboardNavbar = () => {
+    const { showSidebar, setShowSidebar } = useDashboardContext();
     return (
         <Wrapper>
             <div className="nav-container">
                 <div className="start">
-                    <div className="toggler">
+                    <button
+                        className="toggler"
+                        onClick={() => setShowSidebar(!showSidebar)}
+                    >
                         <BiMenuAltLeft className="icon" />
-                    </div>
+                    </button>
                 </div>
                 <div className="center">
                     <Logo />

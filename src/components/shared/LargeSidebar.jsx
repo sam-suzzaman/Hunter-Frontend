@@ -2,11 +2,19 @@ import React from "react";
 import { BiUserCircle } from "react-icons/bi";
 import styled from "styled-components";
 import DashboardNavLinks from "./DashboardNavLinks";
+import { useDashboardContext } from "../../Layout/DashboardLayout";
 
 const LargeSidebar = () => {
+    const { showSidebar } = useDashboardContext();
     return (
         <Wrapper>
-            <div className="sidebar-container">
+            <div
+                className={
+                    !showSidebar
+                        ? "sidebar-container show-sidebar"
+                        : "sidebar-container"
+                }
+            >
                 <div className="profile">
                     <BiUserCircle className="text-5xl font-normal" />
                     <h6 className="text-sm font-semibold capitalize mt-1">

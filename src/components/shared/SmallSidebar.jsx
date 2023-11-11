@@ -3,9 +3,11 @@ import styled from "styled-components";
 import Logo from "../Logo";
 import { FaTimes } from "react-icons/fa";
 import DashboardNavLinks from "./DashboardNavLinks";
+import { useDashboardContext } from "../../Layout/DashboardLayout";
 
 const SmallSidebar = () => {
-    const showSidebar = true;
+    const { showSidebar, setShowSidebar } = useDashboardContext();
+
     return (
         <Wrapper>
             <div
@@ -14,6 +16,7 @@ const SmallSidebar = () => {
                         ? "sidebar-container show-sidebar"
                         : "sidebar-container"
                 }
+                onClick={() => setShowSidebar(!showSidebar)}
             >
                 <div className="content">
                     <button type="button" className="close-btn">
@@ -73,20 +76,25 @@ const Wrapper = styled.aside`
         cursor: pointer;
     }
     .nav-links {
+        width: 80%;
         padding-top: 1.2rem;
         display: flex;
         flex-direction: column;
     }
     .nav-link {
         display: flex;
+        justify-content: center;
         align-items: center;
         color: var(--color-black);
-        padding: 0.8rem 0;
+        padding: 0.6rem 0;
+        margin: 0.1rem 0;
         text-transform: capitalize;
         transition: all 0.3s linear;
     }
     .nav-link:hover {
         color: var(--color-primary);
+        background-color: rgba(0, 0, 0, 0.05);
+        opacity: 0.9;
     }
     .icon {
         font-size: 1.5rem;
@@ -96,6 +104,8 @@ const Wrapper = styled.aside`
     }
     .active {
         color: var(--color-primary);
+        background-color: rgba(0, 0, 0, 0.05);
+        opacity: 0.9;
     }
 `;
 
