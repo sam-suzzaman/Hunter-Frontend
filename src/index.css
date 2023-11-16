@@ -18,7 +18,9 @@ body {
     --color-secondary: #c714c7;
     --color-accent: #c714c7;
     --color-white: #fff;
-    --color-danger:red;
+    --color-black: #000;
+    --color-gray: rgba(0, 0, 0, 0.305) 0;
+    --color-danger: red;
     --shadow-dark: rgba(0, 0, 0, 0.3);
     --shadow-medium: rgba(0, 0, 0, 0.2);
     --shadow-light: rgba(0, 0, 0, 0.1);

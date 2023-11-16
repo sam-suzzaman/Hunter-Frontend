@@ -1,9 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Logo from "../components/Logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Register = () => {
+    const {
+        register,
+        handleSubmit,
+        reset,
+        watch,
+        formState: { errors },
+    } = useForm();
+    const [isPasswordMatched, setIsPasswordMatched] = useState({
+        status: true,
+        message: "",
+    });
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const onSubmit = async (data) => {
+        // password: A@1abcde
+        const { username, email, password, confirmPassword } = data;
+
+        if (password !== confirmPassword) {
+            setIsPasswordMatched({
+                status: false,
+                message: "Both password not matched.",
+            });
+            return;
+        } else {
+            setIsLoading(true);
+            const user = { username, email, password };
+            // posting
+            try {
+                const response = await axios.post(
+                    "http://localhost:1111/api/v1/auth/register",
+                    user
+                );
+
+                Swal.fire({
+                    icon: "success",
+                    title: "Hurray...",
+                    text: response?.data?.message,
+                });
+                reset();
+                navigate("/login");
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error?.response?.data,
+                });
+            }
+        }
+        setIsLoading(false);
+    };
+
+    // to hide the popup
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setIsPasswordMatched({ status: true, message: "" });
+        }, 2000);
+
+        return () => {
+            clearInterval(intervalId); // Clear the interval on component unmount or when dependencies change
+        };
+    }, [isPasswordMatched.status]);
+
     return (
         <Wrapper>
             <div className="container">
@@ -11,7 +78,12 @@ const Register = () => {
                     <Logo />
                 </div>
                 <h1>Create Account</h1>
-                <form>
+                {!isPasswordMatched?.status && (
+                    <p className="text-[11px] font-semibold text-center text-red-700 bg-red-100 px-1 py-2 mt-4 tracking-wider">
+                        both password not matched
+                    </p>
+                )}
+                <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                     <div className="row">
                         <label htmlFor="username">Username</label>
                         <input
@@ -19,16 +91,55 @@ const Register = () => {
                             name="username"
                             autoComplete="off"
                             placeholder="Type Here"
+                            {...register("username", {
+                                required: {
+                                    value: true,
+                                    message: "Username is required",
+                                },
+                                maxLength: {
+                                    value: 30,
+                                    message: "Username is too long(max 30char)",
+                                },
+                                minLength: {
+                                    value: 3,
+                                    message:
+                                        "Username is too short (min 3char)",
+                                },
+                                pattern: {
+                                    value: /^[A-Za-z][A-Za-z0-9_]*$/,
+                                    message:
+                                        "Username can't start with number and special characters",
+                                },
+                            })}
                         />
+                        {errors?.username && (
+                            <span className="text-[10px] font-semibold text-red-600 mt-1 pl-1 tracking-wider">
+                                {errors?.username?.message}
+                            </span>
+                        )}
                     </div>
                     <div className="row">
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
                             name="email"
-                            autoComplete="off"
                             placeholder="Email@example.com"
+                            {...register("email", {
+                                required: {
+                                    value: true,
+                                    message: "A valid email is required",
+                                },
+                                pattern: {
+                                    value: /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
+                                    message: "Enter a valid email",
+                                },
+                            })}
                         />
+                        {errors?.email && (
+                            <span className="text-[10px] font-semibold text-red-600 mt-1 pl-1 tracking-wider">
+                                {errors?.email?.message}
+                            </span>
+                        )}
                     </div>
                     <div className="row">
                         <label htmlFor="password">Password</label>
@@ -36,10 +147,56 @@ const Register = () => {
                             type="password"
                             name="password"
                             placeholder="Type Here"
+                            {...register("password", {
+                                required: {
+                                    value: true,
+                                    message: "Password is required",
+                                },
+                                maxLength: {
+                                    value: 20,
+                                    message: "Password is too long(max 20char)",
+                                },
+                                minLength: {
+                                    value: 8,
+                                    message:
+                                        "Password is too short (min 8char)",
+                                },
+                                pattern: {
+                                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])/,
+                                    message:
+                                        "At least one uppercase,one special char and one number",
+                                },
+                            })}
                         />
+                        {errors?.password && (
+                            <span className="text-[10px] font-semibold text-red-600 mt-1 pl-1 tracking-wider">
+                                {errors?.password?.message}
+                            </span>
+                        )}
+                    </div>
+                    <div className="row">
+                        <label htmlFor="password">Confirm Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Type Here"
+                            {...register("confirmPassword", {
+                                required: {
+                                    value: true,
+                                    message: "Password is required",
+                                },
+                            })}
+                        />
+                        {errors?.confirmPassword && (
+                            <span className="text-[10px] font-semibold text-red-600 mt-1 pl-1 tracking-wider">
+                                {errors?.confirmPassword?.message}
+                            </span>
+                        )}
                     </div>
                     <div className="flex justify-center">
-                        <button type="submit">Register</button>
+                        <button type="submit" disabled={isLoading}>
+                            {isLoading ? "Loading..." : "Register"}
+                        </button>
                     </div>
                 </form>
                 <div className="">
@@ -82,7 +239,7 @@ const Wrapper = styled.div`
         color: var(--color-primary);
     }
     form {
-        margin-top: calc(1rem + 0.9vw);
+        margin-top: calc(0.8rem + 0.7vw);
     }
 
     .row {
@@ -135,6 +292,11 @@ const Wrapper = styled.div`
 
     button:hover {
         background: var(--color-primary);
+    }
+    button:disabled {
+        background: var(--color-gray);
+        color: var(--color-black);
+        cursor: not-allowed;
     }
 
     @media (max-width: 458px) {
