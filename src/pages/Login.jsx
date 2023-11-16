@@ -1,9 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Logo from "../components/Logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Login = () => {
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm();
+
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate("/dashboard");
+
+    const onSubmit = async (data) => {
+        setIsLoading(true);
+
+        // password: A@1abcde
+
+        // posting
+        try {
+            const response = await axios.post(
+                "http://localhost:1111/api/v1/auth/login",
+                data
+            );
+
+            Swal.fire({
+                icon: "success",
+                title: "Hurray...",
+                text: response?.data?.message,
+            });
+            reset();
+            navigate("/dashboard");
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: error?.response?.data,
+            });
+        }
+        setIsLoading(false);
+    };
+
     return (
         <Wrapper>
             <div className="container">
@@ -11,15 +54,25 @@ const Login = () => {
                     <Logo />
                 </div>
                 <h1>Login</h1>
-                <form>
+                <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                     <div className="row">
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
                             name="email"
-                            autoComplete="off"
                             placeholder="Email@example.com"
+                            {...register("email", {
+                                required: {
+                                    value: true,
+                                    message: "A valid email is required",
+                                },
+                            })}
                         />
+                        {errors?.email && (
+                            <span className="text-[10px] font-semibold text-red-600 mt-1 pl-1 tracking-wider">
+                                {errors?.email?.message}
+                            </span>
+                        )}
                     </div>
                     <div className="row">
                         <label htmlFor="password">Password</label>
@@ -27,10 +80,23 @@ const Login = () => {
                             type="password"
                             name="password"
                             placeholder="Type Here"
+                            {...register("password", {
+                                required: {
+                                    value: true,
+                                    message: "Password is required",
+                                },
+                            })}
                         />
+                        {errors?.password && (
+                            <span className="text-[10px] font-semibold text-red-600 mt-1 pl-1 tracking-wider">
+                                {errors?.password?.message}
+                            </span>
+                        )}
                     </div>
                     <div className="flex justify-center">
-                        <button type="submit">Login</button>
+                        <button type="submit" disabled={isLoading}>
+                            {isLoading ? "Loading..." : "Login"}
+                        </button>
                     </div>
                 </form>
                 <div className="">
@@ -126,6 +192,11 @@ const Wrapper = styled.div`
 
     button:hover {
         background: var(--color-primary);
+    }
+    button:disabled {
+        background: var(--color-gray);
+        color: var(--color-black);
+        cursor: not-allowed;
     }
 
     @media (max-width: 458px) {
