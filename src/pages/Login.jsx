@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Logo from "../components/Logo";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -16,7 +16,9 @@ const Login = () => {
     } = useForm();
 
     const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate("/dashboard");
+    let navigate = useNavigate();
+    let location = useLocation();
+    let from = location.state?.from?.pathname || "/"; // to navigate right location after login
 
     const onSubmit = async (data) => {
         setIsLoading(true);
@@ -27,7 +29,10 @@ const Login = () => {
         try {
             const response = await axios.post(
                 "http://localhost:1111/api/v1/auth/login",
-                data
+                data,
+                {
+                    withCredentials: true,
+                }
             );
 
             Swal.fire({
@@ -36,7 +41,8 @@ const Login = () => {
                 text: response?.data?.message,
             });
             reset();
-            navigate("/dashboard");
+            navigate(from, { replace: true });
+            // navigate("/dashboard");
         } catch (error) {
             Swal.fire({
                 icon: "error",
