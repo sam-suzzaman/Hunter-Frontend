@@ -6,8 +6,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useUserContext } from "../context/UserContext";
 
 const Login = () => {
+    const { handleFetchMe } = useUserContext();
     const {
         register,
         handleSubmit,
@@ -34,12 +36,13 @@ const Login = () => {
                     withCredentials: true,
                 }
             );
-
             Swal.fire({
                 icon: "success",
                 title: "Hurray...",
                 text: response?.data?.message,
             });
+            handleFetchMe();
+
             reset();
             navigate(from, { replace: true });
             // navigate("/dashboard");

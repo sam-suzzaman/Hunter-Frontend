@@ -6,7 +6,7 @@ import Logo from "../Logo";
 import { useDashboardContext } from "../../Layout/DashboardLayout";
 
 const DashboardNavbar = () => {
-    const { showSidebar, setShowSidebar } = useDashboardContext();
+    const { showSidebar, setShowSidebar, handleLogout } = useDashboardContext();
     return (
         <Wrapper>
             <div className="nav-container">
@@ -22,7 +22,7 @@ const DashboardNavbar = () => {
                     <Logo />
                 </div>
                 <div className="end">
-                    <button className="logout">
+                    <button className="logout" onClick={handleLogout}>
                         <FiLogOut className="text-lg mr-1" /> logout
                     </button>
                 </div>

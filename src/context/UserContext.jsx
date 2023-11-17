@@ -1,22 +1,32 @@
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getSingleHandler, getMeHandler } from "../utils/FetchHandlers";
+import axios from "axios";
 
 const userContext = React.createContext();
 const UserContext = ({ children }) => {
-    const {
-        isPending: userLoading,
-        isError: userError,
-        data: user,
-        error: userErrorMessage,
-    } = useQuery({
-        queryKey: ["user"],
-        queryFn: () => getMeHandler(`http://localhost:1111/api/v1/auth/me`),
-    });
+    const [userLoading, setUserLoading] = useState(true);
+    const [userError, setUserError] = useState({ status: false, message: "" });
+    const [user, setUser] = useState({});
 
-    const passing = { userLoading, userError, userErrorMessage, user };
-    // const passing = {};
+    const handleFetchMe = async () => {
+        setUserLoading(true);
+        try {
+            const response = await axios.get(
+                `http://localhost:1111/api/v1/auth/me`
+            );
+            setUserError({ status: false, message: "" });
+            setUser(response?.data);
+        } catch (error) {
+            setUserError({ status: true, message: error?.message });
+            setUser({ status: false });
+        }
+        setUserLoading(false);
+    };
+
+    useEffect(() => {
+        handleFetchMe();
+    }, []);
+
+    const passing = { userLoading, userError, user, handleFetchMe };
     return (
         <userContext.Provider value={passing}>{children}</userContext.Provider>
     );

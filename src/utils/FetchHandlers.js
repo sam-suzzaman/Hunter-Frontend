@@ -7,9 +7,6 @@ export const getAllHandler = async (url) => {
 export const getSingleHandler = async (url) => {
     return await axios.get(url);
 };
-export const getMeHandler = async (url) => {
-    return await axios.get(url);
-};
 
 export const postHandler = async ({ url, body }) => {
     return await axios.post(url, body);

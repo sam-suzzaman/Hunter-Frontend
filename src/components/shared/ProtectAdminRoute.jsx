@@ -10,6 +10,7 @@ const ProtectAdminRoute = ({ children }) => {
     if (userLoading) {
         return <Loading />;
     }
+
     if (user?.status) {
         return children;
     }

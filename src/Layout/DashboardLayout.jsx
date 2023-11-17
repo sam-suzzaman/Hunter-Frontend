@@ -3,19 +3,39 @@ import Wrapper from "../assets/css/wrappers/Dashboard";
 import { Outlet } from "react-router-dom";
 
 import { SmallSidebar, LargeSidebar, DashboardNavbar } from "../components";
+import Swal from "sweetalert2";
+import { useUserContext } from "../context/UserContext";
+import axios from "axios";
 
 const DashboardContext = createContext();
 
 const DashboardLayout = () => {
-    const user = { name: "samsuzzaman sajib" };
+    const { handleFetchMe } = useUserContext();
     const [showSidebar, setShowSidebar] = useState(false);
 
     const handleLogout = async () => {
-        console.log("log out");
+        try {
+            const response = await axios.get(
+                "http://localhost:1111/api/v1/auth/logout"
+            );
+
+            Swal.fire({
+                icon: "success",
+                title: "Logout...",
+                text: response?.data?.message,
+            });
+            handleFetchMe();
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: error?.response?.data,
+            });
+        }
     };
 
     // passing values
-    const values = { user, showSidebar, setShowSidebar };
+    const values = { handleLogout, showSidebar, setShowSidebar };
     return (
         <DashboardContext.Provider value={values}>
             <Wrapper>
