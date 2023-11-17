@@ -11,7 +11,8 @@ const ProtectAdminRoute = ({ children }) => {
         return <Loading />;
     }
 
-    if (user?.status) {
+    // && user?.result?.role === "admin"
+    if (user?.email) {
         return children;
     }
 

@@ -3,8 +3,10 @@ import { BiUserCircle } from "react-icons/bi";
 import styled from "styled-components";
 import DashboardNavLinks from "./DashboardNavLinks";
 import { useDashboardContext } from "../../Layout/DashboardLayout";
+import { useUserContext } from "../../context/UserContext";
 
 const LargeSidebar = () => {
+    const { user } = useUserContext();
     const { showSidebar } = useDashboardContext();
     return (
         <Wrapper>
@@ -18,10 +20,10 @@ const LargeSidebar = () => {
                 <div className="profile">
                     <BiUserCircle className="text-5xl font-normal" />
                     <h6 className="text-sm font-semibold capitalize mt-1">
-                        user name
+                        {user?.username}
                     </h6>
                     <p className="text-xs capitalize -mt-1 font-medium">
-                        admin
+                        {user?.role}
                     </p>
                 </div>
                 <div className="content">

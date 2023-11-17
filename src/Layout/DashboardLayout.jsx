@@ -10,7 +10,7 @@ import axios from "axios";
 const DashboardContext = createContext();
 
 const DashboardLayout = () => {
-    const { handleFetchMe } = useUserContext();
+    const { handleFetchMe, user } = useUserContext();
     const [showSidebar, setShowSidebar] = useState(false);
 
     const handleLogout = async () => {

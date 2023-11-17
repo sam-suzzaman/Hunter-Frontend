@@ -30,7 +30,7 @@ const Login = () => {
         // posting
         try {
             const response = await axios.post(
-                "http://localhost:1111/api/v1/auth/login",
+                "https://hunter-backend-dun.vercel.app/api/v1",
                 data,
                 {
                     withCredentials: true,
