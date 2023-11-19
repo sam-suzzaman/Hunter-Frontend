@@ -38,7 +38,7 @@ const Register = () => {
             // posting
             try {
                 const response = await axios.post(
-                    "http://localhost:1111/api/v1/auth/register",
+                    "https://hunter-backend-dun.vercel.app/api/v1/auth/register",
                     user
                 );
 

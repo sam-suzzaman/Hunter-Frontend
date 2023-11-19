@@ -12,7 +12,8 @@ const UserContext = ({ children }) => {
         setUserLoading(true);
         try {
             const response = await axios.get(
-                `http://localhost:1111/api/v1/auth/me`
+                `https://hunter-backend-dun.vercel.app/api/v1/auth/me`,
+                { withCredentials: true }
             );
             setUserError({ status: false, message: "" });
             setUser(response?.data?.result);

@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 import { useUserContext } from "../context/UserContext";
 import axios from "axios";
 
+import Cookies from "js-cookie";
+
 const DashboardContext = createContext();
 
 const DashboardLayout = () => {
@@ -16,9 +18,9 @@ const DashboardLayout = () => {
     const handleLogout = async () => {
         try {
             const response = await axios.get(
-                "http://localhost:1111/api/v1/auth/logout"
+                "https://hunter-backend-dun.vercel.app/api/v1/auth/logout",
+                { withCredentials: true }
             );
-
             Swal.fire({
                 icon: "success",
                 title: "Logout...",

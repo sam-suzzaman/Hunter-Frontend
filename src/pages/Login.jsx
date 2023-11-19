@@ -24,13 +24,12 @@ const Login = () => {
 
     const onSubmit = async (data) => {
         setIsLoading(true);
-
         // password: A@1abcde
 
         // posting
         try {
             const response = await axios.post(
-                "https://hunter-backend-dun.vercel.app/api/v1",
+                "https://hunter-backend-dun.vercel.app/api/v1/auth/login",
                 data,
                 {
                     withCredentials: true,
