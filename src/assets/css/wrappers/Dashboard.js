@@ -6,17 +6,13 @@ const Wrapper = styled.section`
         grid-template-columns: auto 1fr;
     }
     .dashboard-page {
-        width: 90%;
+        width: 100%;
+        padding: 1.5rem calc(1rem + 0.7vw);
     }
 
     @media (max-width: 992px) {
         .dashboard {
             grid-template-columns: 1fr;
-        }
-        .dashboard-page {
-            width: 90vw;
-            margin: 0 auto;
-            padding: 2rem 0;
         }
     }
 `;

@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 import { useUserContext } from "../context/UserContext";
 import axios from "axios";
 
-import Cookies from "js-cookie";
 
 const DashboardContext = createContext();
 

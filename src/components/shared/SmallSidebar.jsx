@@ -18,7 +18,7 @@ const SmallSidebar = () => {
                 }
                 onClick={() => setShowSidebar(!showSidebar)}
             >
-                <div className="content">
+                <div className={showSidebar ? "content show" : "content"}>
                     <button type="button" className="close-btn">
                         <FaTimes />
                     </button>
@@ -62,6 +62,11 @@ const Wrapper = styled.aside`
         display: flex;
         align-items: center;
         flex-direction: column;
+        transform: scale(0);
+        transition: all 0.3s linear;
+    }
+    .show {
+        transform: scale(1);
     }
     .close-btn {
         position: absolute;

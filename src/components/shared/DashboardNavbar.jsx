@@ -37,11 +37,10 @@ const Wrapper = styled.nav`
     align-items: center;
     justify-content: center;
     box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
-    padding: 1rem;
+    padding: 1rem calc(1rem + 0.7vw);
 
     .nav-container {
         width: 100%;
-        /* max-width: 90%; */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -79,9 +78,9 @@ const Wrapper = styled.nav`
         position: sticky;
         top: 0;
 
-        .nav-container {
+        /* .nav-container {
             padding: 0 calc(1rem + 0.7vw);
-        }
+        } */
     }
 `;
 
