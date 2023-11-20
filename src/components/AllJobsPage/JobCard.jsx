@@ -67,7 +67,7 @@ const Wrapper = styled.div`
         width: 50px;
         height: 50px;
         border-radius: 3px;
-        background-color: var(--color-accent);
+        background-color: #fb891f;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -79,8 +79,8 @@ const Wrapper = styled.div`
     }
     .right .title {
         text-transform: capitalize;
-        font-size: calc(1.1rem + 0.2vw);
-        font-weight: 600;
+        font-size: calc(1rem + 0.4vw);
+        font-weight: 400;
         color: var(--color-black);
         line-height: 20px;
     }
@@ -106,7 +106,7 @@ const Wrapper = styled.div`
     }
     .create-date .date {
         font-weight: 600;
-        background-color: var(--color-neutral);
+        /* background-color: var(--color-neutral); */
         padding: 2px 8px;
         border-radius: 10px;
         color: var(--color-primary);

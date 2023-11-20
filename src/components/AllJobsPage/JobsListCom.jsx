@@ -6,7 +6,7 @@ import JobCard from "./JobCard";
 
 const JobsListCom = () => {
     const { jobLoading, jobs } = useJobContext();
-    console.log(jobs);
+    // console.log(jobs);
     if (jobLoading) {
         return <LoadingComTwo />;
     }
@@ -50,6 +50,7 @@ const Wrapper = styled.div`
         margin-top: 1.5rem;
         display: grid;
         grid-template-columns: repeat(2, minmax(auto, 500px));
+        justify-content: center;
         grid-gap: 1.5rem;
     }
     @media screen and (max-width: 890px) {
