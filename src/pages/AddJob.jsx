@@ -1,9 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { CiSquarePlus } from "react-icons/ci";
+
 import { Job_Status, Job_Type } from "../utils/JobData";
 
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import Swal from "sweetalert2";
+
 const AddJob = () => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        reset,
+        formState: { errors },
+    } = useForm();
+
+    const onSubmit = async (data) => {
+        setIsLoading(true);
+
+        const newJob = {
+            company: data?.company,
+            position: data?.position,
+            jobStatus: data?.status,
+            jobType: data?.type,
+            jobLocation: data?.location,
+        };
+        console.log(newJob);
+        // posting
+        try {
+            const response = await axios.post(
+                "https://hunter-backend-dun.vercel.app/api/v1/jobs",
+                newJob,
+                {
+                    withCredentials: true,
+                }
+            );
+            Swal.fire({
+                icon: "success",
+                title: "Done...",
+                text: response?.data?.message,
+            });
+
+            reset();
+            // navigate("/");
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: error?.response?.data,
+            });
+        }
+        setIsLoading(false);
+    };
+
     return (
         <Wrapper>
             <div className="">
@@ -12,7 +66,12 @@ const AddJob = () => {
                     <CiSquarePlus className="ml-1 text-xl md:text-2xl" />
                 </div>
                 <div className="content-row">
-                    <form className="form">
+                    <form
+                        className="form"
+                        autoComplete="off"
+                        onSubmit={handleSubmit(onSubmit)}
+                    >
+                        {/* Position */}
                         <div className="row">
                             <label htmlFor="position">Position</label>
                             <input
@@ -20,8 +79,29 @@ const AddJob = () => {
                                 id="position"
                                 name="position"
                                 placeholder="Job Position"
+                                {...register("position", {
+                                    required: {
+                                        value: true,
+                                        message: "Job Positon is required",
+                                    },
+                                    maxLength: {
+                                        value: 100,
+                                        message: "Too long (max 100char)",
+                                    },
+                                    minLength: {
+                                        value: 3,
+                                        message: "Too short (max 3char)",
+                                    },
+                                })}
                             />
+                            {errors?.position && (
+                                <span className="text-[10px] font-semibold text-red-600 mt-1 pl-1 tracking-wider">
+                                    {errors?.position?.message}
+                                </span>
+                            )}
                         </div>
+
+                        {/* Company */}
                         <div className="row">
                             <label htmlFor="company">Company</label>
                             <input
@@ -29,8 +109,29 @@ const AddJob = () => {
                                 id="company"
                                 name="company"
                                 placeholder="Company Name"
+                                {...register("company", {
+                                    required: {
+                                        value: true,
+                                        message: "Job Company is required",
+                                    },
+                                    maxLength: {
+                                        value: 100,
+                                        message: "Too long (max 100char)",
+                                    },
+                                    minLength: {
+                                        value: 3,
+                                        message: "Too short (max 3char)",
+                                    },
+                                })}
                             />
+                            {errors?.company && (
+                                <span className="text-[10px] font-semibold text-red-600 mt-1 pl-1 tracking-wider">
+                                    {errors?.company?.message}
+                                </span>
+                            )}
                         </div>
+
+                        {/* Location */}
                         <div className="row">
                             <label htmlFor="location">Location</label>
                             <input
@@ -38,33 +139,108 @@ const AddJob = () => {
                                 id="location"
                                 name="location"
                                 placeholder="Job Location"
+                                {...register("location", {
+                                    required: {
+                                        value: true,
+                                        message: "Job Location is required",
+                                    },
+                                    maxLength: {
+                                        value: 100,
+                                        message: "Too long (max 100char)",
+                                    },
+                                    minLength: {
+                                        value: 3,
+                                        message: "Too short (max 3char)",
+                                    },
+                                })}
                             />
+                            {errors?.location && (
+                                <span className="text-[10px] font-semibold text-red-600 mt-1 pl-1 tracking-wider">
+                                    {errors?.location?.message}
+                                </span>
+                            )}
                         </div>
+
+                        {/* Status */}
                         <div className="row">
                             <label htmlFor="status">Job Status</label>
-                            <select name="status" id="stauts">
-                                <option value="">Select a Job Status</option>
+                            <select
+                                defaultValue={"none"}
+                                name="status"
+                                id="stauts"
+                                {...register("status", {
+                                    required: {
+                                        value: true,
+                                        message: "Job Status is required",
+                                    },
+                                    validate: {
+                                        valueType: (value) => {
+                                            return (
+                                                value !== "none" ||
+                                                "Job Status is required"
+                                            );
+                                        },
+                                    },
+                                })}
+                            >
+                                <option disabled value="none">
+                                    Select a Job Status
+                                </option>
+
                                 {Job_Status?.map((job, index) => (
                                     <option value={job} key={index + job}>
                                         {job}
                                     </option>
                                 ))}
                             </select>
+                            {errors?.status && (
+                                <span className="text-[10px] font-semibold text-red-600 mt-1 pl-1 tracking-wider">
+                                    {errors?.status?.message}
+                                </span>
+                            )}
                         </div>
+
+                        {/* Type */}
                         <div className="row">
                             <label htmlFor="type">Job Type</label>
-                            <select name="type" id="type">
-                                <option value="">Select a Job Type</option>
+                            <select
+                                defaultValue={"none"}
+                                name="type"
+                                id="type"
+                                {...register("type", {
+                                    required: {
+                                        value: true,
+                                        message: "Job Type is required",
+                                    },
+                                    validate: {
+                                        valueType: (value) => {
+                                            return (
+                                                value !== "none" ||
+                                                "Job Type is required"
+                                            );
+                                        },
+                                    },
+                                })}
+                            >
+                                <option disabled value="none">
+                                    Select a Job Type
+                                </option>
                                 {Job_Type?.map((job, index) => (
                                     <option value={job} key={index + job}>
                                         {job}
                                     </option>
                                 ))}
                             </select>
+                            {errors?.type && (
+                                <span className="text-[10px] font-semibold text-red-600 mt-1 pl-1 tracking-wider">
+                                    {errors?.type?.message}
+                                </span>
+                            )}
                         </div>
+
                         <div className="row">
                             <label htmlFor="" className="invisible">
-                                dele
+                                delete
                             </label>
                             <input
                                 type="submit"

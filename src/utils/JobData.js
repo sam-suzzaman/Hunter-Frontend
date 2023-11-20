@@ -1,3 +1,3 @@
-export const Job_Status = ["pending", "interview", "rejected"];
+export const Job_Status = ["pending", "interview", "declined"];
 
-export const Job_Type = ["full time", "part time", "intern"];
+export const Job_Type = ["full-time", "part-time", "internship"];
