@@ -16,7 +16,8 @@ body {
 :root {
     --color-primary: #ac04ac;
     --color-secondary: #c714c7;
-    --color-accent: #c714c7;
+    --color-accent: #5f14c7;
+    --color-neutral: rgb(255, 211, 255);
     --color-white: #fff;
     --color-black: #000;
     --color-gray: rgba(0, 0, 0, 0.305) 0;

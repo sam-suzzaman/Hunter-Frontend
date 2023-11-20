@@ -1,7 +1,18 @@
 import React from "react";
+import styled from "styled-components";
+
+import JobsListCom from "../components/AllJobsPage/JobsListCom";
+import { JobContext, useJobContext } from "../context/JobContext";
 
 const AllJobs = () => {
-    return <div>this is the all jobs page</div>;
+    return (
+        <JobContext>
+            <Wrapper>
+                <JobsListCom />
+            </Wrapper>
+        </JobContext>
+    );
 };
 
+const Wrapper = styled.section``;
 export default AllJobs;
