@@ -38,6 +38,8 @@ const Wrapper = styled.nav`
     justify-content: center;
     box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
     padding: 1rem calc(1rem + 0.7vw);
+    background-color: var(--color-white);
+    z-index: 1;
 
     .nav-container {
         width: 100%;

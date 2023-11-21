@@ -36,11 +36,13 @@ const LargeSidebar = () => {
 
 const Wrapper = styled.aside`
     display: none;
+
     .profile {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
+
     @media (min-width: 992px) {
         display: block;
         box-shadow: 1px 0px 0px 0px rgba(0, 0, 0, 0.1);

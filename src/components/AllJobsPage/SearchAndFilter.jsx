@@ -37,7 +37,6 @@ const SearchAndFilter = () => {
         if (queryString) {
             url += `?${queryString}`;
         }
-        console.log(url);
         handleJobFetch(url);
     }, [typeFilter, statusFilter, sortBy, searchQuery]);
 

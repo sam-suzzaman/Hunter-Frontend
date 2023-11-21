@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { TfiLocationPin } from "react-icons/tfi";
 import { BsFillBriefcaseFill } from "react-icons/bs";
 import { TbTargetArrow } from "react-icons/tb";
+import { FaRegCalendarAlt } from "react-icons/fa";
 
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import dayjs from "dayjs";
@@ -22,13 +23,14 @@ const JobCard = ({ job }) => {
                     </div>
                     <div className="right">
                         <h2 className="title">{job?.position}</h2>
-                        <h4 className="company">{job?.company}</h4>
-                        <p className="create-date">
-                            Posted At: <span className="date">{date}</span>
-                        </p>
+                        <h4 className="company">- {job?.company}</h4>
                     </div>
                 </div>
                 <div className="middle-row">
+                    <div className="location" title="Posted at">
+                        <FaRegCalendarAlt className="mr-2 text-lg" />
+                        <span className="">{date}</span>
+                    </div>
                     <div className="location">
                         <TfiLocationPin className="mr-2 text-lg" />
                         <span className="">{job?.jobLocation}</span>
@@ -49,13 +51,15 @@ const JobCard = ({ job }) => {
 
 const Wrapper = styled.div`
     width: 100%;
-    max-width: 500px;
+    height: 100%;
+    max-width: 400px;
     margin: 0 auto;
     .card-container {
+        height: 100%;
         box-shadow: 0 4px 4px var(--shadow-medium),
             0 -2px 6px var(--shadow-medium);
         border-radius: 4px;
-        padding: 1rem 1.5rem;
+        padding: 2rem 1.5rem;
     }
     .card-container .card-header {
         display: flex;
@@ -79,43 +83,26 @@ const Wrapper = styled.div`
     }
     .right .title {
         text-transform: capitalize;
-        font-size: calc(1rem + 0.4vw);
-        font-weight: 400;
+        font-size: calc(14px + 0.3vw);
+        font-weight: 600;
         color: var(--color-black);
-        line-height: 20px;
+        line-height: 25px;
     }
     .right .company {
         display: inline-block;
         text-transform: capitalize;
-        font-size: 13px;
+        font-size: calc(11px + 0.1vw);
         font-weight: 600;
         color: var(--color-black);
         letter-spacing: 1px;
         padding: 1px 2px;
         border-radius: 4px;
-        margin-top: 7px;
     }
 
-    .create-date {
-        margin-top: 3px;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        font-size: 12px;
-        font-weight: 600;
-    }
-    .create-date .date {
-        font-weight: 600;
-        /* background-color: var(--color-neutral); */
-        padding: 2px 8px;
-        border-radius: 10px;
-        color: var(--color-primary);
-        margin-left: 5px;
-    }
     .middle-row {
         margin-top: 20px;
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         grid-row-gap: calc(0.6rem + 0.09vw);
         align-items: center;
     }
@@ -123,18 +110,19 @@ const Wrapper = styled.div`
     .location,
     .type,
     .status {
-        margin-top: 6px;
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        font-size: 16px;
+        font-size: 14px;
     }
+
     .status span {
         background-color: #fefe7d;
         padding: 2px 15px;
         border-radius: 6px;
         text-transform: uppercase;
-        font-size: 14px;
+        font-size: 12.5px;
+        font-weight: 400;
         letter-spacing: 1px;
     }
     .status span.pending {
