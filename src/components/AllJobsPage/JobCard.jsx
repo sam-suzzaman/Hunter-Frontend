@@ -137,13 +137,13 @@ const Wrapper = styled.div`
         font-size: 14px;
         letter-spacing: 1px;
     }
-    .type span.pending {
+    .status span.pending {
         background-color: #fefe7d;
     }
-    .type span.declined {
+    .status span.declined {
         background-color: #feb69a;
     }
-    .type span.interview {
+    .status span.interview {
         background-color: #a0ffa3;
     }
 `;

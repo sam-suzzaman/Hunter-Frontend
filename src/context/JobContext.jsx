@@ -15,8 +15,9 @@ const JobContext = ({ children }) => {
             setJobError({ status: false, message: "" });
             setJobs(response?.data?.result);
         } catch (error) {
-            setUserError({ status: true, message: error?.message });
+            setJobError({ status: true, message: error?.message });
             setJobs({ status: false });
+            setJobLoading(false);
         }
         setJobLoading(false);
     };

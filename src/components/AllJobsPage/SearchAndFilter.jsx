@@ -1,11 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Job_Status, Job_Type, Job_Sort_By } from "../../utils/JobData";
 
 import { CiFilter } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
+import { useJobContext } from "../../context/JobContext";
 
 const SearchAndFilter = () => {
+    const { handleJobFetch } = useJobContext();
+
+    const [typeFilter, setTypeFilter] = useState("");
+    const [statusFilter, setStatusFilter] = useState("");
+    const [sortBy, setSortBy] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
+
+    useEffect(() => {
+        const baseUrl = "https://hunter-backend-dun.vercel.app/api/v1/jobs";
+        let url = baseUrl;
+        const queryParams = {};
+
+        if (searchQuery) {
+            queryParams.search = searchQuery;
+        }
+        if (typeFilter) {
+            queryParams.jobType = typeFilter;
+        }
+        if (statusFilter) {
+            queryParams.jobStatus = statusFilter;
+        }
+        if (sortBy) {
+            queryParams.sort = sortBy;
+        }
+        // Constructing query string
+        const queryString = new URLSearchParams(queryParams).toString();
+
+        if (queryString) {
+            url += `?${queryString}`;
+        }
+        console.log(url);
+        handleJobFetch(url);
+    }, [typeFilter, statusFilter, sortBy, searchQuery]);
+
     return (
         <Wrapper>
             <form action="" className="form">
@@ -15,8 +50,12 @@ const SearchAndFilter = () => {
                     </div>
                     <div className="type-row">
                         <span className="text">Types</span>
-                        <select className="type-select">
-                            <option value="none">default</option>
+                        <select
+                            className="type-select"
+                            onChange={(e) => setTypeFilter(e.target.value)}
+                            value={typeFilter}
+                        >
+                            <option value="">default</option>
                             {Job_Type?.map((type, i) => {
                                 return (
                                     <option key={i + type} value={type}>
@@ -28,8 +67,12 @@ const SearchAndFilter = () => {
                     </div>
                     <div className="status-row">
                         <span className="text">Status</span>
-                        <select className="status-select">
-                            <option value="none">default</option>
+                        <select
+                            className="status-select"
+                            onChange={(e) => setStatusFilter(e.target.value)}
+                            value={statusFilter}
+                        >
+                            <option value="">default</option>
                             {Job_Status?.map((type, i) => {
                                 return (
                                     <option key={i + type} value={type}>
@@ -41,8 +84,12 @@ const SearchAndFilter = () => {
                     </div>
                     <div className="status-row">
                         <span className="text">Sort By</span>
-                        <select className="status-select">
-                            <option value="none">default</option>
+                        <select
+                            className="status-select"
+                            onChange={(e) => setSortBy(e.target.value)}
+                            value={sortBy}
+                        >
+                            <option value="">default</option>
                             {Job_Sort_By?.map((type, i) => {
                                 return (
                                     <option key={i + type} value={type}>
@@ -54,7 +101,15 @@ const SearchAndFilter = () => {
                     </div>
                 </div>
                 <div className="search-row">
-                    <input type="text" name="" id="" className="search" />
+                    <input
+                        type="text"
+                        name=""
+                        id=""
+                        className="search"
+                        placeholder="Type Job Title"
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        value={searchQuery}
+                    />
                     <span className="icon">
                         <CiSearch />
                     </span>

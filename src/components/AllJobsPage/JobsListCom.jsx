@@ -10,6 +10,14 @@ const JobsListCom = () => {
     if (jobLoading) {
         return <LoadingComTwo />;
     }
+
+    if (!jobs?.length) {
+        return (
+            <h2 className="text-lg md:text-3xl text-center font-bold mt-24 text-red-600">
+                No Job Found
+            </h2>
+        );
+    }
     return (
         <Wrapper>
             <h5 className="job-count">
