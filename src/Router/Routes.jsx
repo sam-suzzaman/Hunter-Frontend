@@ -14,8 +14,10 @@ import {
     Admin,
     EditJob,
     AddJob,
+    ManageJobs,
 } from "../pages";
 import ProtectAdminRoute from "../components/shared/ProtectAdminRoute";
+import { JobContext } from "../context/JobContext";
 
 const router = createBrowserRouter([
     {
@@ -39,7 +41,9 @@ const router = createBrowserRouter([
                 path: "dashboard",
                 element: (
                     <ProtectAdminRoute>
-                        <DashboardLayout></DashboardLayout>
+                        <JobContext>
+                            <DashboardLayout></DashboardLayout>
+                        </JobContext>
                     </ProtectAdminRoute>
                 ),
                 children: [
@@ -54,6 +58,10 @@ const router = createBrowserRouter([
                     {
                         path: "all-jobs",
                         element: <AllJobs />,
+                    },
+                    {
+                        path: "manage-jobs",
+                        element: <ManageJobs />,
                     },
                     {
                         path: "profile",

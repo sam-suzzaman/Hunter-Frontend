@@ -5,6 +5,7 @@ import { RiMenuSearchLine } from "react-icons/ri";
 import { RiMenuAddFill } from "react-icons/ri";
 import { FiUser } from "react-icons/fi";
 import { FaUserShield } from "react-icons/fa";
+import { MdManageAccounts } from "react-icons/md";
 
 const links = [
     {
@@ -16,6 +17,11 @@ const links = [
         text: "all jobs",
         path: "all-jobs",
         icon: <RiMenuSearchLine />,
+    },
+    {
+        text: "manage jobs",
+        path: "manage-jobs",
+        icon: <MdManageAccounts />,
     },
     {
         text: "stats",
