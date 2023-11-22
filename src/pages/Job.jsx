@@ -148,7 +148,7 @@ const Wrapper = styled.section`
         text-transform: capitalize;
         text-align: center;
         opacity: 0.75;
-        margin-top: 5px;
+        margin-top: 8px;
         display: flex;
         justify-content: center;
         align-items: center;
