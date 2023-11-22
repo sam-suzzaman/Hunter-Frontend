@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { getAllHandler } from "../utils/FetchHandlers";
 
 const jobContext = React.createContext();
 
@@ -26,7 +27,13 @@ const JobContext = ({ children }) => {
         handleJobFetch(`https://hunter-backend-dun.vercel.app/api/v1/jobs`);
     }, []);
 
-    const passing = { jobLoading, jobError, jobs, handleJobFetch };
+    const passing = {
+        jobLoading,
+        jobError,
+        jobs,
+        setJobs,
+        handleJobFetch,
+    };
 
     return (
         <jobContext.Provider value={passing}>{children}</jobContext.Provider>

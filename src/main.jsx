@@ -11,18 +11,18 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 // Create a client
-// const queryClient = new QueryClient();
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <UserContext>
+        {/* <UserContext>
             <RouterProvider router={router}></RouterProvider>
-        </UserContext>
+        </UserContext> */}
 
-        {/* <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
             <UserContext>
                 <RouterProvider router={router}></RouterProvider>
             </UserContext>
-        </QueryClientProvider> */}
+        </QueryClientProvider>
     </React.StrictMode>
 );

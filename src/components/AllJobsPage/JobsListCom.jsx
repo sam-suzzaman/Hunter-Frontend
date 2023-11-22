@@ -6,7 +6,7 @@ import JobCard from "./JobCard";
 
 const JobsListCom = () => {
     const { jobLoading, jobs } = useJobContext();
-    // console.log(jobs);
+
     if (jobLoading) {
         return <LoadingComTwo />;
     }

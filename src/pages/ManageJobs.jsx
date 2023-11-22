@@ -8,8 +8,50 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { MdVisibility } from "react-icons/md";
 
+import Swal from "sweetalert2";
+import axios from "axios";
+
 const ManageJobs = () => {
-    const { jobs, jobLoading } = useJobContext();
+    const { jobs, setJobs, jobLoading } = useJobContext();
+
+    const deleteModal = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#19b74b",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteJobHandler(id);
+            }
+        });
+    };
+
+    const deleteJobHandler = async (id) => {
+        try {
+            const response = await axios.delete(
+                `https://hunter-backend-dun.vercel.app/api/v1/jobs/${id}`,
+                { withCredentials: true }
+            );
+
+            const updateJobs = jobs.filter((job) => job._id !== id);
+            setJobs(updateJobs);
+            Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+            });
+        } catch (error) {
+            Swal.fire({
+                title: "Sorry!",
+                text: error?.message,
+                icon: "error",
+            });
+        }
+    };
 
     if (jobLoading) {
         return <LoadingComTwo />;
@@ -43,7 +85,7 @@ const ManageJobs = () => {
                             let i =
                                 index + 1 < 10 ? `0${index + 1}` : index + 1;
                             return (
-                                <tr>
+                                <tr key={job._id}>
                                     <td>{i}</td>
                                     <td>{job?.position}</td>
                                     <td>{job?.company}</td>
@@ -54,7 +96,10 @@ const ManageJobs = () => {
                                         <button className="action edit">
                                             <FaRegEdit />
                                         </button>
-                                        <button className="action delete">
+                                        <button
+                                            className="action delete"
+                                            onClick={() => deleteModal(job._id)}
+                                        >
                                             <MdDelete />
                                         </button>
                                     </td>

@@ -6,6 +6,8 @@ import { CiFilter } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
 import { useJobContext } from "../../context/JobContext";
 
+import { getAllHandler } from "../../utils/FetchHandlers";
+
 const SearchAndFilter = () => {
     const { handleJobFetch } = useJobContext();
 

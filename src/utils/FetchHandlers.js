@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getAllHandler = async (url) => {
-    return await axios.get(url);
+    return (response = await axios.get(url));
 };
 
 export const getSingleHandler = async (url) => {
