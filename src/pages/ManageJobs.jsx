@@ -10,6 +10,7 @@ import { MdVisibility } from "react-icons/md";
 
 import Swal from "sweetalert2";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const ManageJobs = () => {
     const { jobs, setJobs, jobLoading } = useJobContext();
@@ -90,12 +91,18 @@ const ManageJobs = () => {
                                     <td>{job?.position}</td>
                                     <td>{job?.company}</td>
                                     <td className="action-row">
-                                        <button className="action view">
+                                        <Link
+                                            to={`/dashboard/job/${job._id}`}
+                                            className="action view"
+                                        >
                                             <MdVisibility />
-                                        </button>
-                                        <button className="action edit">
+                                        </Link>
+                                        <Link
+                                            to={`/dashboard/edit-job/${job._id}`}
+                                            className="action edit"
+                                        >
                                             <FaRegEdit />
-                                        </button>
+                                        </Link>
                                         <button
                                             className="action delete"
                                             onClick={() => deleteModal(job._id)}

@@ -1,11 +1,12 @@
 import axios from "axios";
 
 export const getAllHandler = async (url) => {
-    return (response = await axios.get(url));
+    return await axios.get(url);
 };
 
 export const getSingleHandler = async (url) => {
-    return await axios.get(url);
+    const res = await axios.get(url);
+    return res?.data;
 };
 
 export const postHandler = async ({ url, body }) => {
