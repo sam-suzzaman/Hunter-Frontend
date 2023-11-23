@@ -12,7 +12,7 @@ dayjs.extend(advancedFormat);
 
 const JobCard = ({ job }) => {
     // console.log(job);
-    const date = dayjs(job?.createdAt).format("MMM Do, YYYY");
+    const date = dayjs(job?.jobDeadline).format("MMM Do, YYYY");
     return (
         <Wrapper>
             <div className="card-container">
@@ -27,7 +27,7 @@ const JobCard = ({ job }) => {
                     </div>
                 </div>
                 <div className="middle-row">
-                    <div className="location" title="Posted at">
+                    <div className="location" title="Last Date">
                         <FaRegCalendarAlt className="mr-2 text-lg" />
                         <span className="">{date}</span>
                     </div>

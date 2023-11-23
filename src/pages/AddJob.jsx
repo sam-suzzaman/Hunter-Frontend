@@ -47,7 +47,7 @@ const AddJob = () => {
             jobDeadline: deadline + "",
             jobDescription: data?.description,
             jobSkills: skills,
-            jobFaciliites: facilities,
+            jobFacilities: facilities,
             jobContact: data?.contact,
         };
         // posting

@@ -12,6 +12,10 @@ dayjs.extend(advancedFormat);
 
 import { MdAccessTime } from "react-icons/md";
 
+// import advancedFormat from "dayjs/plugin/advancedFormat";
+// import dayjs from "dayjs";
+dayjs.extend(advancedFormat);
+
 const Job = () => {
     const { id } = useParams();
     const {
@@ -27,6 +31,8 @@ const Job = () => {
             ),
     });
 
+    const date = dayjs(job?.result?.jobDeadline).format("MMM Do, YYYY");
+
     if (isLoading) {
         return <LoadingComTwo />;
     }
@@ -34,7 +40,7 @@ const Job = () => {
         return <h2 className="">{error?.message}</h2>;
     }
     if (job) {
-        console.log(job.result);
+        // console.log(job.result);
     }
     return (
         <Wrapper>
@@ -55,66 +61,50 @@ const Job = () => {
             <div className="middle-row">
                 <div className="description">
                     <h3 className="sec-title">description</h3>
-                    <p className="">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Numquam, nam nobis! Explicabo nostrum tenetur nesciunt?
-                        Eligendi veniam iste exercitationem iusto suscipit non
-                        nobis quibusdam cum facere aliquid, esse veritatis
-                        voluptate aut quo, architecto, sunt asperiores
-                        temporibus possimus quasi eos laborum! Lorem ipsum dolor
-                        sit amet consectetur adipisicing elit. Doloremque illum
-                        natus tempore, blanditiis libero distinctio recusandae
-                        earum, at, amet dicta fuga. Autem omnis veniam earum,
-                        dolore quasi nulla tempore aperiam!
-                    </p>
+                    <p className="">{job?.result?.jobDescription}</p>
                 </div>
                 <h4 className="deadline">
-                    Deadline: <span className="">20 Jan 2024</span>
+                    Deadline: <span className="">{date}</span>
                 </h4>
                 <h4 className="vacancy">
-                    Job Vacancy: <span className="">04</span>
+                    Job Vacancy:{" "}
+                    <span className="">{job?.result?.jobVacancy}</span>
                 </h4>
                 <div className="requirement">
                     <h3 className="sec-title">Requirements</h3>
-                    <p className="">
+                    {/* <p className="">
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Iusto rerum, possimus reiciendis error temporibus
                         nam quod quaerat magnam architecto! Ipsum!
-                    </p>
+                    </p> */}
                     <ul>
-                        <li>html</li>
-                        <li>css</li>
-                        <li>javaScript</li>
-                        <li>Nodejs</li>
-                        <li>expressjs</li>
-                        <li>tailwindcss</li>
-                        <li>nextjs</li>
-                        <li>mongodb</li>
+                        {job?.result?.jobSkills?.map((skill) => (
+                            <li key={skill}>{skill}</li>
+                        ))}
                     </ul>
                 </div>
                 <div className="facility">
                     <h3 className="sec-title">Facilities</h3>
-                    <p className="">
+                    {/* <p className="">
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Iusto rerum, possimus reiciendis error temporibus
                         nam quod quaerat magnam architecto! Ipsum!
-                    </p>
+                    </p> */}
                     <ul>
-                        <li>html</li>
-                        <li>css</li>
-                        <li>javaScript</li>
-                        <li>Nodejs</li>
+                        {job?.result?.jobFacilities?.map((facility) => (
+                            <li key={facility}>{facility}</li>
+                        ))}
                     </ul>
                 </div>
                 <h4 className="salary">
-                    Salary: <span className="">10k (negotialbe)</span>
+                    Salary:{" "}
+                    <span className="">{job?.result?.jobSalary} TK</span>
                 </h4>
                 <div className="apply">
                     <h3 className="sec-title">To apply</h3>
 
                     <p className="intro">send your cv/resume</p>
-                    <p className="info">Email: demo@gmail.com</p>
-                    <p className="info">Mobile: 01*********</p>
+                    <p className="info">Email: {job?.result?.jobContact}</p>
                 </div>
             </div>
         </Wrapper>
