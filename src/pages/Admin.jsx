@@ -1,14 +1,31 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import styled from "styled-components";
+import { getAllHandler } from "../utils/FetchHandlers";
+import LoadingComTwo from "../components/shared/LoadingComTwo";
 
 const Admin = () => {
+    const { isPending, isError, data, error } = useQuery({
+        queryKey: ["admin_info"],
+        queryFn: () =>
+            getAllHandler(
+                `https://hunter-backend-dun.vercel.app/api/v1/admin/info`
+            ),
+    });
+
+    if (isPending) {
+        return <LoadingComTwo />;
+    }
+    if (data) {
+        console.log(data);
+    }
     return (
         <Wrapper>
             <div class="card-container">
                 {/* Members */}
                 <div class="relative p-5 bg-gradient-to-r from-blue-400 to-blue-600 rounded-md overflow-hidden">
                     <div class="relative z-10 mb-4 text-white text-4xl leading-none font-semibold">
-                        110
+                        {data?.user}
                     </div>
                     <div class="relative z-10 text-blue-100 leading-none font-semibold">
                         Members
@@ -30,7 +47,7 @@ const Admin = () => {
 
                 <div class="relative p-5 bg-gradient-to-r from-red-400 to-red-600 rounded-md overflow-hidden">
                     <div class="relative z-10 mb-4 text-white text-4xl leading-none font-semibold">
-                        3
+                        {data?.job}
                     </div>
                     <div class="relative z-10 text-red-100 leading-none font-semibold">
                         Total Jobs
