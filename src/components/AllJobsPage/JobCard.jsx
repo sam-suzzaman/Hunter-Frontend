@@ -83,20 +83,25 @@ const Wrapper = styled.div`
     }
     .right .title {
         text-transform: capitalize;
-        font-size: calc(14px + 0.3vw);
+        font-size: calc(15px + 0.3vw);
         font-weight: 600;
         color: var(--color-black);
-        line-height: 25px;
+        line-height: 24px;
     }
     .right .company {
         display: inline-block;
         text-transform: capitalize;
-        font-size: calc(11px + 0.1vw);
+        font-size: calc(11px + 0.15vw);
         font-weight: 600;
         color: var(--color-black);
         letter-spacing: 1px;
         padding: 1px 2px;
         border-radius: 4px;
+    }
+    @media screen and (max-width: 550px) {
+        .right .title {
+            line-height: 18px;
+        }
     }
 
     .middle-row {

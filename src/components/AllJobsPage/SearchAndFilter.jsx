@@ -101,6 +101,7 @@ const SearchAndFilter = () => {
                         </select>
                     </div>
                 </div>
+
                 <div className="search-row">
                     <input
                         type="text"
@@ -198,12 +199,13 @@ const Wrapper = styled.div`
         outline: none;
     }
     .search-row .icon {
-        background-color: #000;
-        color: var(--color-white);
-        font-weight: 600;
-        padding: 5px 6px;
+        background-color: #e4e4e4;
+        border: 1px solid #0000003d;
+        border-left: 0;
+        color: var(--color-black);
+        font-weight: 900;
+        padding: 5.5px 6px;
         font-size: 17px;
-        cursor: pointer;
         border-radius: 0 3px 3px 0;
     }
 `;
