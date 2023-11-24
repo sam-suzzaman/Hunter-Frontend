@@ -25,8 +25,12 @@ const Wrapper = styled.div`
     @media screen and (max-width: 1200px) {
         padding: 1rem 2rem;
     }
-    @media screen and (max-width: 500px) {
-        padding: 0.7rem 1rem;
+    @media screen and (max-width: 600px) {
+        padding: 1.2rem 1rem;
+        .container {
+            display: flex;
+            justify-content: center;
+        }
     }
 `;
 

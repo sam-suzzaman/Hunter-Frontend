@@ -47,11 +47,11 @@ const Job = () => {
             <div className="top-row">
                 <h2 className="title">
                     <span className="capitalize ">job title: </span>
-                    {job.result?.position}
+                    {job?.position}
                 </h2>
                 <h4 className="company">
                     <span className="fancy">posted by: </span>
-                    {job.result?.company}
+                    {job?.company}
                 </h4>
                 <h4 className="post-date">
                     <MdAccessTime className="text-lg mr-1" />
@@ -71,11 +71,6 @@ const Job = () => {
                 </h4>
                 <div className="requirement">
                     <h3 className="sec-title">Requirements</h3>
-                    {/* <p className="">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Iusto rerum, possimus reiciendis error temporibus
-                        nam quod quaerat magnam architecto! Ipsum!
-                    </p> */}
                     <ul>
                         {job?.jobSkills?.map((skill) => (
                             <li key={skill}>{skill}</li>
@@ -84,11 +79,6 @@ const Job = () => {
                 </div>
                 <div className="facility">
                     <h3 className="sec-title">Facilities</h3>
-                    {/* <p className="">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Iusto rerum, possimus reiciendis error temporibus
-                        nam quod quaerat magnam architecto! Ipsum!
-                    </p> */}
                     <ul>
                         {job?.jobFacilities?.map((facility) => (
                             <li key={facility}>{facility}</li>

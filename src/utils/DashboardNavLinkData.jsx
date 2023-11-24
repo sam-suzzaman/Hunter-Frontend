@@ -7,15 +7,15 @@ import { FiUser } from "react-icons/fi";
 import { FaUserShield } from "react-icons/fa";
 import { MdManageAccounts } from "react-icons/md";
 
-const links = [
+const AdminLinks = [
     {
         text: "add job",
-        path: ".",
+        path: "add-jobs",
         icon: <RiMenuAddFill />,
     },
     {
         text: "all jobs",
-        path: "all-jobs",
+        path: ".",
         icon: <RiMenuSearchLine />,
     },
     {
@@ -40,4 +40,18 @@ const links = [
     },
 ];
 
-export default links;
+const UserLinks = [
+    {
+        text: "all jobs",
+        path: ".",
+        icon: <RiMenuSearchLine />,
+    },
+
+    {
+        text: "profile",
+        path: "profile",
+        icon: <FiUser />,
+    },
+];
+
+export { AdminLinks, UserLinks };

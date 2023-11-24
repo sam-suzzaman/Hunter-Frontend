@@ -402,7 +402,7 @@ const EditJob = () => {
                                     onChange={setSkills}
                                     name="skills"
                                     placeHolder="HTML, CSS"
-                                    separators={["Enter", " ", ","]}
+                                    separators={["Enter", ","]}
                                     onRemoved={["Backspace"]}
                                     classNames={{
                                         tag: "tag-cls",

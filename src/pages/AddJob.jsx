@@ -371,7 +371,7 @@ const AddJob = () => {
                                     onChange={setSkills}
                                     name="skills"
                                     placeHolder="HTML, CSS"
-                                    separators={["Enter", " ", ","]}
+                                    separators={["Enter", ","]}
                                     onRemoved={["Backspace"]}
                                     classNames={{
                                         tag: "tag-cls",
@@ -427,37 +427,6 @@ const AddJob = () => {
                             )}
                         </div>
 
-                        {/* Free Text */}
-                        {/* <div className="row mt-5">
-                            <label htmlFor="position ">Job details</label>
-                            <ReactQuill
-                                theme="snow"
-                                value={jobDetails}
-                                onChange={setJobDetails}
-                                className="mt-1"
-                            />
-                        </div> */}
-                        {/* <div className="grid grid-cols-1 min-[900px]:grid-cols-2">
-                            <div className="row mt-5">
-                                <label htmlFor="position ">Job details</label>
-                                <ReactQuill
-                                    theme="snow"
-                                    value={jobDetails}
-                                    onChange={setJobDetails}
-                                    className="mt-1"
-                                />
-                            </div>
-                            <div className="row mt-5 hidden min-[900px]:block border broder-1 ml-4 p-4">
-                                <h6 className="text-[13px] font-bold opacity-80">
-                                    Preview
-                                </h6>
-                                <div
-                                    dangerouslySetInnerHTML={{
-                                        __html: jobDetails,
-                                    }}
-                                />
-                            </div>
-                        </div> */}
                         <div className="row mt-4 sm:mt-0">
                             <label htmlFor="" className="invisible">
                                 delete

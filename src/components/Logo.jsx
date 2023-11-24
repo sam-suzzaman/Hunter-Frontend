@@ -15,7 +15,10 @@ const Logo = () => {
 
 const Wrapper = styled.div`
     width: 100%;
-    max-width: 170px;
+    max-width: 130px;
+    @media screen and (max-width: 600px) {
+        max-width: 100px;
+    }
     a {
         text-decoration: none;
     }

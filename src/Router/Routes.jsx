@@ -19,6 +19,7 @@ import {
 } from "../pages";
 import ProtectAdminRoute from "../components/shared/ProtectAdminRoute";
 import { JobContext } from "../context/JobContext";
+import CommonProtectRoute from "../components/shared/CommonProtectRoute";
 
 const router = createBrowserRouter([
     {
@@ -41,24 +42,24 @@ const router = createBrowserRouter([
             {
                 path: "dashboard",
                 element: (
-                    <ProtectAdminRoute>
+                    <CommonProtectRoute>
                         <JobContext>
                             <DashboardLayout></DashboardLayout>
                         </JobContext>
-                    </ProtectAdminRoute>
+                    </CommonProtectRoute>
                 ),
                 children: [
                     {
                         index: true,
+                        element: <AllJobs />,
+                    },
+                    {
+                        path: "add-jobs",
                         element: <AddJob />,
                     },
                     {
                         path: "stats",
                         element: <Stats />,
-                    },
-                    {
-                        path: "all-jobs",
-                        element: <AllJobs />,
                     },
                     {
                         path: "job/:id",
