@@ -15,7 +15,7 @@ const Logo = () => {
 
 const Wrapper = styled.div`
     width: 100%;
-    max-width: 100px;
+    max-width: 170px;
     a {
         text-decoration: none;
     }
