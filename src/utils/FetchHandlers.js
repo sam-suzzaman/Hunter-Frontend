@@ -6,7 +6,7 @@ export const getAllHandler = async (url) => {
 
 export const getSingleHandler = async (url) => {
     const res = await axios.get(url);
-    return res?.data;
+    return res?.data?.result;
 };
 
 export const postHandler = async ({ url, body }) => {
@@ -14,6 +14,11 @@ export const postHandler = async ({ url, body }) => {
 };
 
 export const updateHandler = async ({ url, body }) => {
+    const res = await axios.patch(url, body);
+    return res?.data?.result;
+};
+
+export const updateHandlerPut = async ({ url, body }) => {
     return await axios.put(url, body);
 };
 

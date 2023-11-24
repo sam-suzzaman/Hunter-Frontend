@@ -31,7 +31,7 @@ const Job = () => {
             ),
     });
 
-    const date = dayjs(job?.result?.jobDeadline).format("MMM Do, YYYY");
+    const date = dayjs(job?.jobDeadline).format("MMM Do, YYYY");
 
     if (isLoading) {
         return <LoadingComTwo />;
@@ -39,9 +39,9 @@ const Job = () => {
     if (isError) {
         return <h2 className="">{error?.message}</h2>;
     }
-    if (job) {
-        // console.log(job.result);
-    }
+    // if (job) {
+    //     console.log(job.result);
+    // }
     return (
         <Wrapper>
             <div className="top-row">
@@ -61,14 +61,13 @@ const Job = () => {
             <div className="middle-row">
                 <div className="description">
                     <h3 className="sec-title">description</h3>
-                    <p className="">{job?.result?.jobDescription}</p>
+                    <p className="">{job?.jobDescription}</p>
                 </div>
                 <h4 className="deadline">
                     Deadline: <span className="">{date}</span>
                 </h4>
                 <h4 className="vacancy">
-                    Job Vacancy:{" "}
-                    <span className="">{job?.result?.jobVacancy}</span>
+                    Job Vacancy: <span className="">{job?.jobVacancy}</span>
                 </h4>
                 <div className="requirement">
                     <h3 className="sec-title">Requirements</h3>
@@ -78,7 +77,7 @@ const Job = () => {
                         nam quod quaerat magnam architecto! Ipsum!
                     </p> */}
                     <ul>
-                        {job?.result?.jobSkills?.map((skill) => (
+                        {job?.jobSkills?.map((skill) => (
                             <li key={skill}>{skill}</li>
                         ))}
                     </ul>
@@ -91,20 +90,19 @@ const Job = () => {
                         nam quod quaerat magnam architecto! Ipsum!
                     </p> */}
                     <ul>
-                        {job?.result?.jobFacilities?.map((facility) => (
+                        {job?.jobFacilities?.map((facility) => (
                             <li key={facility}>{facility}</li>
                         ))}
                     </ul>
                 </div>
                 <h4 className="salary">
-                    Salary:{" "}
-                    <span className="">{job?.result?.jobSalary} TK</span>
+                    Salary: <span className="">{job?.jobSalary} TK</span>
                 </h4>
                 <div className="apply">
                     <h3 className="sec-title">To apply</h3>
 
                     <p className="intro">send your cv/resume</p>
-                    <p className="info">Email: {job?.result?.jobContact}</p>
+                    <p className="info">Email: {job?.jobContact}</p>
                 </div>
             </div>
         </Wrapper>
