@@ -10,6 +10,8 @@ import advancedFormat from "dayjs/plugin/advancedFormat";
 import dayjs from "dayjs";
 dayjs.extend(advancedFormat);
 
+import { Link } from "react-router-dom";
+
 const JobCard = ({ job }) => {
     // console.log(job);
     const date = dayjs(job?.jobDeadline).format("MMM Do, YYYY");
@@ -43,6 +45,14 @@ const JobCard = ({ job }) => {
                         <TbTargetArrow className="mr-2 text-lg" />
                         <span className={job?.jobStatus}>{job?.jobStatus}</span>
                     </div>
+                </div>
+                <div className="end-row">
+                    <Link
+                        to={`/dashboard/job/${job._id}`}
+                        className="detail-btn"
+                    >
+                        details
+                    </Link>
                 </div>
             </div>
         </Wrapper>
@@ -138,6 +148,23 @@ const Wrapper = styled.div`
     }
     .status span.interview {
         background-color: #a0ffa3;
+    }
+    .end-row {
+        margin-top: calc(18px + 0.4vw);
+    }
+    .end-row .detail-btn {
+        padding: 4px 18px;
+        text-transform: capitalize;
+        background-color: var(--color-black);
+        color: var(--color-white);
+        border-radius: 4px;
+        letter-spacing: 1px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s linear;
+    }
+    .end-row .detail-btn:hover {
+        background-color: var(--color-accent);
     }
 `;
 export default JobCard;
