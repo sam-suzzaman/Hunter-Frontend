@@ -55,11 +55,19 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "add-jobs",
-                        element: <AddJob />,
+                        element: (
+                            <ProtectAdminRoute>
+                                <AddJob />
+                            </ProtectAdminRoute>
+                        ),
                     },
                     {
                         path: "stats",
-                        element: <Stats />,
+                        element: (
+                            <ProtectAdminRoute>
+                                <Stats />
+                            </ProtectAdminRoute>
+                        ),
                     },
                     {
                         path: "job/:id",
@@ -67,7 +75,11 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "manage-jobs",
-                        element: <ManageJobs />,
+                        element: (
+                            <ProtectAdminRoute>
+                                <ManageJobs />
+                            </ProtectAdminRoute>
+                        ),
                     },
                     {
                         path: "profile",
@@ -75,15 +87,23 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "admin",
-                        element: <Admin />,
+                        element: (
+                            <ProtectAdminRoute>
+                                <Admin />
+                            </ProtectAdminRoute>
+                        ),
                     },
                     {
                         path: "edit-job/:id",
-                        element: <EditJob />,
+                        element: (
+                            <ProtectAdminRoute>
+                                <EditJob />
+                            </ProtectAdminRoute>
+                        ),
                     },
-                    {
-                        path: "delete-job/:id",
-                    },
+                    // {
+                    //     path: "delete-job/:id",
+                    // },
                 ],
             },
         ],
