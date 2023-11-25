@@ -13,7 +13,6 @@ dayjs.extend(advancedFormat);
 import { Link } from "react-router-dom";
 
 const JobCard = ({ job }) => {
-    // console.log(job);
     const date = dayjs(job?.jobDeadline).format("MMM Do, YYYY");
     return (
         <Wrapper>
@@ -47,10 +46,7 @@ const JobCard = ({ job }) => {
                     </div>
                 </div>
                 <div className="end-row">
-                    <Link
-                        to={`/dashboard/job/${job._id}`}
-                        className="detail-btn"
-                    >
+                    <Link to={`/job/${job._id}`} className="detail-btn">
                         details
                     </Link>
                 </div>
@@ -62,7 +58,7 @@ const JobCard = ({ job }) => {
 const Wrapper = styled.div`
     width: 100%;
     height: 100%;
-    max-width: 400px;
+    /* max-width: 400px; */
     margin: 0 auto;
     .card-container {
         height: 100%;

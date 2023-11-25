@@ -39,7 +39,7 @@ const JobsListCom = () => {
 
 const Wrapper = styled.div`
     background-color: var(--color-gray);
-
+    width: 100%;
     .job-count {
         margin-top: 14px;
         font-size: 11px;
@@ -55,6 +55,7 @@ const Wrapper = styled.div`
     }
 
     .list-container {
+        width: 100%;
         margin-top: 1.5rem;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -63,7 +64,7 @@ const Wrapper = styled.div`
         grid-gap: 1.5rem;
         flex-wrap: wrap;
     }
-    @media (max-width: 1250px) {
+    @media (max-width: 1018px) {
         .list-container {
             grid-template-columns: 1fr 1fr;
             grid-gap: 1.5rem;

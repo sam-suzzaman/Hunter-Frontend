@@ -9,19 +9,9 @@ import { MdManageAccounts } from "react-icons/md";
 
 const AdminLinks = [
     {
-        text: "add job",
-        path: "add-jobs",
-        icon: <RiMenuAddFill />,
-    },
-    {
-        text: "all jobs",
+        text: "profile",
         path: ".",
-        icon: <RiMenuSearchLine />,
-    },
-    {
-        text: "manage jobs",
-        path: "manage-jobs",
-        icon: <MdManageAccounts />,
+        icon: <FiUser />,
     },
     {
         text: "stats",
@@ -29,9 +19,14 @@ const AdminLinks = [
         icon: <IoIosStats />,
     },
     {
-        text: "profile",
-        path: "profile",
-        icon: <FiUser />,
+        text: "add job",
+        path: "add-jobs",
+        icon: <RiMenuAddFill />,
+    },
+    {
+        text: "manage jobs",
+        path: "manage-jobs",
+        icon: <MdManageAccounts />,
     },
     {
         text: "admin",
@@ -42,14 +37,8 @@ const AdminLinks = [
 
 const UserLinks = [
     {
-        text: "all jobs",
-        path: ".",
-        icon: <RiMenuSearchLine />,
-    },
-
-    {
         text: "profile",
-        path: "profile",
+        path: ".",
         icon: <FiUser />,
     },
 ];

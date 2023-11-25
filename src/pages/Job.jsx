@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 dayjs.extend(advancedFormat);
 
 import { MdAccessTime } from "react-icons/md";
+import Navbar from "../components/shared/Navbar";
 
 // import advancedFormat from "dayjs/plugin/advancedFormat";
 // import dayjs from "dayjs";
@@ -43,63 +44,67 @@ const Job = () => {
     //     console.log(job.result);
     // }
     return (
-        <Wrapper>
-            <div className="top-row">
-                <h2 className="title">
-                    <span className="capitalize ">job title: </span>
-                    {job?.position}
-                </h2>
-                <h4 className="company">
-                    <span className="fancy">posted by: </span>
-                    {job?.company}
-                </h4>
-                <h4 className="post-date">
-                    <MdAccessTime className="text-lg mr-1" />
-                    {dayjs(job?.result?.createdAt).format("MMM Do, YYYY")}
-                </h4>
-            </div>
-            <div className="middle-row">
-                <div className="description">
-                    <h3 className="sec-title">description</h3>
-                    <p className="">{job?.jobDescription}</p>
+        <>
+            <Navbar />
+            <Wrapper>
+                <div className="top-row">
+                    <h2 className="title">
+                        <span className="capitalize ">job title: </span>
+                        {job?.position}
+                    </h2>
+                    <h4 className="company">
+                        <span className="fancy">posted by: </span>
+                        {job?.company}
+                    </h4>
+                    <h4 className="post-date">
+                        <MdAccessTime className="text-lg mr-1" />
+                        {dayjs(job?.result?.createdAt).format("MMM Do, YYYY")}
+                    </h4>
                 </div>
-                <h4 className="deadline">
-                    Deadline: <span className="">{date}</span>
-                </h4>
-                <h4 className="vacancy">
-                    Job Vacancy: <span className="">{job?.jobVacancy}</span>
-                </h4>
-                <div className="requirement">
-                    <h3 className="sec-title">Requirements</h3>
-                    <ul>
-                        {job?.jobSkills?.map((skill) => (
-                            <li key={skill}>{skill}</li>
-                        ))}
-                    </ul>
-                </div>
-                <div className="facility">
-                    <h3 className="sec-title">Facilities</h3>
-                    <ul>
-                        {job?.jobFacilities?.map((facility) => (
-                            <li key={facility}>{facility}</li>
-                        ))}
-                    </ul>
-                </div>
-                <h4 className="salary">
-                    Salary: <span className="">{job?.jobSalary} TK</span>
-                </h4>
-                <div className="apply">
-                    <h3 className="sec-title">To apply</h3>
+                <div className="middle-row">
+                    <div className="description">
+                        <h3 className="sec-title">description</h3>
+                        <p className="">{job?.jobDescription}</p>
+                    </div>
+                    <h4 className="deadline">
+                        Deadline: <span className="">{date}</span>
+                    </h4>
+                    <h4 className="vacancy">
+                        Job Vacancy: <span className="">{job?.jobVacancy}</span>
+                    </h4>
+                    <div className="requirement">
+                        <h3 className="sec-title">Requirements</h3>
+                        <ul>
+                            {job?.jobSkills?.map((skill) => (
+                                <li key={skill}>{skill}</li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="facility">
+                        <h3 className="sec-title">Facilities</h3>
+                        <ul>
+                            {job?.jobFacilities?.map((facility) => (
+                                <li key={facility}>{facility}</li>
+                            ))}
+                        </ul>
+                    </div>
+                    <h4 className="salary">
+                        Salary: <span className="">{job?.jobSalary} TK</span>
+                    </h4>
+                    <div className="apply">
+                        <h3 className="sec-title">To apply</h3>
 
-                    <p className="intro">send your cv/resume</p>
-                    <p className="info">Email: {job?.jobContact}</p>
+                        <p className="intro">send your cv/resume</p>
+                        <p className="info">Email: {job?.jobContact}</p>
+                    </div>
                 </div>
-            </div>
-        </Wrapper>
+            </Wrapper>
+        </>
     );
 };
 
 const Wrapper = styled.section`
+    padding: 2rem 0;
     max-width: 1000px;
     margin: 0 auto;
     margin-bottom: calc(20px + 1vw);

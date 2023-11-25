@@ -92,7 +92,7 @@ const ManageJobs = () => {
                                     <td>{job?.company}</td>
                                     <td className="action-row">
                                         <Link
-                                            to={`/dashboard/job/${job._id}`}
+                                            to={`/job/${job._id}`}
                                             className="action view"
                                         >
                                             <MdVisibility />

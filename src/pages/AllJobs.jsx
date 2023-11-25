@@ -4,14 +4,24 @@ import styled from "styled-components";
 import JobsListCom from "../components/AllJobsPage/JobsListCom";
 import SearchAndFilter from "../components/AllJobsPage/SearchAndFilter";
 
+import Navbar from "../components/shared/Navbar";
+
 const AllJobs = () => {
     return (
-        <Wrapper>
-            <SearchAndFilter />
-            <JobsListCom />
-        </Wrapper>
+        <>
+            <Navbar />
+            <Wrapper>
+                <SearchAndFilter />
+                <JobsListCom />
+            </Wrapper>
+        </>
     );
 };
 
-const Wrapper = styled.section``;
+const Wrapper = styled.section`
+    padding: 2rem 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+`;
 export default AllJobs;

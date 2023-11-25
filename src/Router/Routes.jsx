@@ -32,6 +32,26 @@ const router = createBrowserRouter([
                 element: <Landing />,
             },
             {
+                path: "all-jobs",
+                element: (
+                    <CommonProtectRoute>
+                        <JobContext>
+                            <AllJobs />
+                        </JobContext>
+                    </CommonProtectRoute>
+                ),
+            },
+            {
+                path: "job/:id",
+                element: (
+                    <CommonProtectRoute>
+                        <JobContext>
+                            <Job />
+                        </JobContext>
+                    </CommonProtectRoute>
+                ),
+            },
+            {
                 path: "register",
                 element: <Register></Register>,
             },
@@ -51,15 +71,7 @@ const router = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        element: <AllJobs />,
-                    },
-                    {
-                        path: "add-jobs",
-                        element: (
-                            <ProtectAdminRoute>
-                                <AddJob />
-                            </ProtectAdminRoute>
-                        ),
+                        element: <Profile />,
                     },
                     {
                         path: "stats",
@@ -70,8 +82,12 @@ const router = createBrowserRouter([
                         ),
                     },
                     {
-                        path: "job/:id",
-                        element: <Job />,
+                        path: "add-jobs",
+                        element: (
+                            <ProtectAdminRoute>
+                                <AddJob />
+                            </ProtectAdminRoute>
+                        ),
                     },
                     {
                         path: "manage-jobs",
@@ -80,10 +96,6 @@ const router = createBrowserRouter([
                                 <ManageJobs />
                             </ProtectAdminRoute>
                         ),
-                    },
-                    {
-                        path: "profile",
-                        element: <Profile />,
                     },
                     {
                         path: "admin",
@@ -101,9 +113,6 @@ const router = createBrowserRouter([
                             </ProtectAdminRoute>
                         ),
                     },
-                    // {
-                    //     path: "delete-job/:id",
-                    // },
                 ],
             },
         ],
