@@ -5,6 +5,7 @@ import JobsListCom from "../components/AllJobsPage/JobsListCom";
 import SearchAndFilter from "../components/AllJobsPage/SearchAndFilter";
 
 import Navbar from "../components/shared/Navbar";
+import PaginationCom from "../components/AllJobsPage/PaginationCom";
 
 const AllJobs = () => {
     return (
@@ -13,6 +14,7 @@ const AllJobs = () => {
             <Wrapper>
                 <SearchAndFilter />
                 <JobsListCom />
+                <PaginationCom />
             </Wrapper>
         </>
     );

@@ -14,7 +14,7 @@ const JobContext = ({ children }) => {
         try {
             const response = await axios.get(url, { withCredentials: true });
             setJobError({ status: false, message: "" });
-            setJobs(response?.data?.result);
+            setJobs(response?.data);
         } catch (error) {
             setJobError({ status: true, message: error?.message });
             setJobs({ status: false });
@@ -24,9 +24,11 @@ const JobContext = ({ children }) => {
     };
 
     useEffect(() => {
-        handleJobFetch(`https://hunter-backend-dun.vercel.app/api/v1/jobs`);
+        handleJobFetch(
+            `https://hunter-backend-dun.vercel.app/api/v1/jobs?page=1`
+        );
     }, []);
-
+    console.log(jobs);
     const passing = {
         jobLoading,
         jobError,

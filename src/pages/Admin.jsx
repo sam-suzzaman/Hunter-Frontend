@@ -16,13 +16,13 @@ const Admin = () => {
     if (isPending) {
         return <LoadingComTwo />;
     }
-    if (data) {
-        console.log(data);
-    }
+    // if (data) {
+    //     console.log(data);
+    // }
     return (
         <Wrapper>
             <div className="">
-                <h2 className="text-lg md:text-2xl font-semibold capitalize mb-6 text-gray-700">
+                <h2 className="text-lg md:text-xl font-semibold capitalize mb-3 text-gray-700">
                     Basic Info
                 </h2>
                 <div class="card-container">
@@ -98,7 +98,7 @@ const Admin = () => {
             </div>
 
             <div className="mt-12">
-                <h2 className="text-lg md:text-2xl font-bold capitalize mb-6 text-gray-700">
+                <h2 className="text-lg md:text-xl font-bold capitalize mb-3 text-gray-700">
                     Job Info
                 </h2>
                 <div class="card-container">
@@ -179,8 +179,8 @@ const Admin = () => {
 const Wrapper = styled.section`
     .card-container {
         display: grid;
-        grid-template-columns: repeat(3, minmax(auto, 300px));
-        justify-content: center;
+        grid-template-columns: repeat(3, minmax(auto, 250px));
+        /* justify-content: center; */
         align-items: center;
         gap: 20px;
     }

@@ -6,8 +6,6 @@ import { CiFilter } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
 import { useJobContext } from "../../context/JobContext";
 
-import { getAllHandler } from "../../utils/FetchHandlers";
-
 const SearchAndFilter = () => {
     const { handleJobFetch } = useJobContext();
 
@@ -17,7 +15,8 @@ const SearchAndFilter = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
-        const baseUrl = "https://hunter-backend-dun.vercel.app/api/v1/jobs";
+        const baseUrl =
+            "https://hunter-backend-dun.vercel.app/api/v1/jobs?page=1&limit=5";
         let url = baseUrl;
         const queryParams = {};
 
@@ -37,8 +36,10 @@ const SearchAndFilter = () => {
         const queryString = new URLSearchParams(queryParams).toString();
 
         if (queryString) {
-            url += `?${queryString}`;
+            url += `&${queryString}`;
+            // url += `?${queryString}`;
         }
+        console.log(url);
         handleJobFetch(url);
     }, [typeFilter, statusFilter, sortBy, searchQuery]);
 

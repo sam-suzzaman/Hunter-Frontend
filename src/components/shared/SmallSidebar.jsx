@@ -22,7 +22,7 @@ const SmallSidebar = () => {
                     <button type="button" className="close-btn">
                         <FaTimes />
                     </button>
-                    <header>
+                    <header className="flex justify-center">
                         <Logo />
                     </header>
                     <DashboardNavLinks />
@@ -56,11 +56,12 @@ const Wrapper = styled.aside`
     .content {
         background: var(--color-white);
         width: 90%;
+        max-width: 350px;
         border-radius: 6px;
         padding: 2rem 1rem;
         position: relative;
         display: flex;
-        align-items: center;
+        /* align-items: center; */
         flex-direction: column;
         transform: scale(0);
         transition: all 0.3s linear;
@@ -72,29 +73,31 @@ const Wrapper = styled.aside`
         position: absolute;
         top: -10px;
         left: -10px;
-        background: var(--color-white);
+        background: #ffffffdb;
         border-color: transparent;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         color: var(--color-danger);
         border-radius: 50%;
-        padding: 3px;
+        padding: 5px;
         cursor: pointer;
     }
     .nav-links {
-        width: 80%;
+        width: 100%;
         padding-top: 1.2rem;
         display: flex;
         flex-direction: column;
     }
     .nav-link {
         display: flex;
-        justify-content: center;
+        /* justify-content: center; */
         align-items: center;
         color: var(--color-black);
-        padding: 0.6rem 0;
+        padding: 0.6rem 0.5rem;
+        border-radius: 4px;
         margin: 0.1rem 0;
         text-transform: capitalize;
         transition: all 0.3s linear;
+        /* background-color: rgba(172, 4, 172, 0.05); */
     }
     .nav-link:hover {
         color: var(--color-primary);
