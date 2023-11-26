@@ -10,10 +10,47 @@ import advancedFormat from "dayjs/plugin/advancedFormat";
 import dayjs from "dayjs";
 dayjs.extend(advancedFormat);
 
+import { useUserContext } from "../../context/UserContext";
+
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { postHandler } from "../../utils/FetchHandlers";
+import Swal from "sweetalert2";
 
 const JobCard = ({ job }) => {
     const date = dayjs(job?.jobDeadline).format("MMM Do, YYYY");
+    const { user } = useUserContext();
+
+    const handleApply = async (id) => {
+        let currentDate = new Date();
+        let date = currentDate.toISOString().slice(0, 10);
+        const appliedJob = {
+            applicantId: user?._id,
+            recruiterId: job?.createdBy,
+            jobId: id,
+            status: "pending",
+            dateOfApplication: date,
+        };
+        console.log(appliedJob);
+        try {
+            const response = await postHandler({
+                url: "https://hunter-backend-dun.vercel.app/api/v1/application/apply",
+                body: appliedJob,
+            });
+            Swal.fire({
+                icon: "success",
+                title: "Hurray...",
+                text: response?.data?.message,
+            });
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: error?.response?.data,
+            });
+        }
+    };
     return (
         <Wrapper>
             <div className="card-container">
@@ -49,6 +86,21 @@ const JobCard = ({ job }) => {
                     <Link to={`/job/${job._id}`} className="detail-btn">
                         details
                     </Link>
+                    {user?._id !== job?.createdBy ? (
+                        <button
+                            className="apply-btn"
+                            onClick={() => handleApply(job._id)}
+                        >
+                            Apply
+                        </button>
+                    ) : (
+                        <Link
+                            to={`/dashboard/edit-job/${job._id}`}
+                            className="detail-btn"
+                        >
+                            edit
+                        </Link>
+                    )}
                 </div>
             </div>
         </Wrapper>
@@ -147,6 +199,9 @@ const Wrapper = styled.div`
     }
     .end-row {
         margin-top: calc(18px + 0.4vw);
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
     .end-row .detail-btn {
         padding: 4px 18px;
@@ -158,9 +213,26 @@ const Wrapper = styled.div`
         font-size: 14px;
         font-weight: 500;
         transition: all 0.3s linear;
+        border: none;
     }
     .end-row .detail-btn:hover {
         background-color: var(--color-accent);
+    }
+    .end-row .apply-btn {
+        padding: 4px 18px;
+        text-transform: capitalize;
+        background-color: var(--color-accent);
+        color: var(--color-white);
+        border-radius: 4px;
+        letter-spacing: 1px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s linear;
+        border: none;
+        outline: none;
+    }
+    .end-row .apply-btn:hover {
+        background-color: var(--color-black);
     }
 `;
 export default JobCard;

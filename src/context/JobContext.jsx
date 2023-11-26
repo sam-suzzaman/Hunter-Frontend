@@ -28,7 +28,6 @@ const JobContext = ({ children }) => {
             `https://hunter-backend-dun.vercel.app/api/v1/jobs?page=1`
         );
     }, []);
-    console.log(jobs);
     const passing = {
         jobLoading,
         jobError,

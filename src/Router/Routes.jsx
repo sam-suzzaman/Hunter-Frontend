@@ -16,6 +16,7 @@ import {
     AddJob,
     ManageJobs,
     Job,
+    MyJobs,
 } from "../pages";
 import ProtectAdminRoute from "../components/shared/ProtectAdminRoute";
 import { JobContext } from "../context/JobContext";
@@ -112,6 +113,10 @@ const router = createBrowserRouter([
                                 <EditJob />
                             </ProtectAdminRoute>
                         ),
+                    },
+                    {
+                        path: "my-jobs",
+                        element: <MyJobs />,
                     },
                 ],
             },

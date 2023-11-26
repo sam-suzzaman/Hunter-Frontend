@@ -11,7 +11,7 @@ export const getSingleHandler = async (url) => {
 };
 
 export const postHandler = async ({ url, body }) => {
-    return await axios.post(url, body);
+    return await axios.post(url, body, { withCredentials: true });
 };
 
 export const updateHandler = async ({ url, body }) => {

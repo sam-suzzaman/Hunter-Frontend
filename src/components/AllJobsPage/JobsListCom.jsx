@@ -21,13 +21,19 @@ const JobsListCom = () => {
     return (
         <Wrapper>
             <h5 className="job-count">
-                Total
+                Shows
                 <span className="fancy">
                     {jobs?.result?.length < 10
                         ? `0${jobs?.result?.length}`
                         : jobs?.result?.length}
                 </span>
-                jobs are found
+                of total
+                <span className="fancy">
+                    {jobs?.totalJobs < 10
+                        ? `0${jobs?.totalJobs}`
+                        : jobs?.totalJobs}
+                </span>
+                Jobs
             </h5>
 
             <div className="list-container">
@@ -42,6 +48,7 @@ const JobsListCom = () => {
 const Wrapper = styled.div`
     background-color: var(--color-gray);
     width: 100%;
+    margin-top: 1.5rem;
     .job-count {
         margin-top: 14px;
         font-size: 11px;

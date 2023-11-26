@@ -1,76 +1,43 @@
-import React from "react";
-import { CiSquarePlus } from "react-icons/ci";
-import styled from "styled-components";
-import { useJobContext } from "../context/JobContext";
-import LoadingComTwo from "../components/shared/LoadingComTwo";
-
-import { FaRegEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import { MdVisibility } from "react-icons/md";
-
-import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import React from "react";
+import styled from "styled-components";
+import LoadingComTwo from "../shared/LoadingComTwo";
 
-const ManageJobs = () => {
-    const { jobs, setJobs, jobLoading } = useJobContext();
-
-    const deleteModal = (id) => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#19b74b",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                deleteJobHandler(id);
-            }
-        });
-    };
-
-    const deleteJobHandler = async (id) => {
-        try {
-            const response = await axios.delete(
-                `https://hunter-backend-dun.vercel.app/api/v1/jobs/${id}`,
-                { withCredentials: true }
+const Applicant = () => {
+    const {
+        isPending,
+        isError,
+        data: jobs,
+        error,
+    } = useQuery({
+        queryKey: ["my-jobs"],
+        queryFn: async () => {
+            const response = await axios.get(
+                `https://hunter-backend-dun.vercel.app/api/v1/application/applicant-jobs`
             );
+            return response?.data?.result;
+        },
+    });
 
-            const updateJobs = jobs.filter((job) => job._id !== id);
-            setJobs(updateJobs);
-            Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success",
-            });
-        } catch (error) {
-            Swal.fire({
-                title: "Sorry!",
-                text: error?.message,
-                icon: "error",
-            });
-        }
-    };
-
-    if (jobLoading) {
+    if (isPending) {
         return <LoadingComTwo />;
     }
 
-    if (!jobs?.result?.length) {
-        return (
-            <h2 className="text-lg md:text-3xl font-bold text-red-600 text-center mt-12">
-                -- Job List is Empty --
-            </h2>
-        );
+    if (isError) {
+        return <h2 className="">{error?.message}</h2>;
     }
+
+    if (jobs) {
+        console.log(jobs);
+    }
+
+    if (!jobs?.length === 0) {
+        return <h2 className="">No job found</h2>;
+    }
+
     return (
         <Wrapper>
-            <div className="title-row">
-                Manage Jobs
-                <CiSquarePlus className="ml-1 text-xl md:text-2xl" />
-            </div>
             <div className="content-row">
                 <table className="table">
                     <thead>
@@ -78,37 +45,27 @@ const ManageJobs = () => {
                             <th>#</th>
                             <th>Job Position</th>
                             <th>Company</th>
-                            <th>actions</th>
+                            <th>Status</th>
+                            {/* <th>actions</th> */}
                         </tr>
                     </thead>
                     <tbody>
-                        {jobs?.result?.map((job, index) => {
+                        {jobs?.map((job, index) => {
                             let i =
                                 index + 1 < 10 ? `0${index + 1}` : index + 1;
                             return (
-                                <tr key={job._id}>
+                                <tr key={jobs?.jobId?._id}>
                                     <td>{i}</td>
-                                    <td>{job?.position}</td>
-                                    <td>{job?.company}</td>
+                                    <td>{job?.jobId?.position}</td>
+                                    <td>{job?.jobId?.company}</td>
                                     <td className="action-row">
-                                        <Link
-                                            to={`/job/${job._id}`}
-                                            className="action view"
-                                        >
-                                            <MdVisibility />
-                                        </Link>
-                                        <Link
-                                            to={`/dashboard/edit-job/${job._id}`}
-                                            className="action edit"
-                                        >
-                                            <FaRegEdit />
-                                        </Link>
-                                        <button
+                                        {job?.status}
+                                        {/* <button
                                             className="action delete"
                                             onClick={() => deleteModal(job._id)}
                                         >
                                             <MdDelete />
-                                        </button>
+                                        </button> */}
                                     </td>
                                 </tr>
                             );
@@ -200,5 +157,4 @@ const Wrapper = styled.section`
         color: #f1322f;
     }
 `;
-
-export default ManageJobs;
+export default Applicant;
