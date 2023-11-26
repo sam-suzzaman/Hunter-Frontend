@@ -16,7 +16,8 @@ const MyJobs = () => {
     return (
         <Wrapper>
             <div className="title-row">
-                Manage Job Applications
+                {user?.role === "admin" && "Manage Applications"}
+                {user?.role === "user" && "My Applications"}
                 <CiSquarePlus className="ml-1 text-xl md:text-2xl" />
             </div>
             {user?.role === "user" && <Applicant />}

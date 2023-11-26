@@ -17,6 +17,7 @@ import {
     ManageJobs,
     Job,
     MyJobs,
+    EditProfile,
 } from "../pages";
 import ProtectAdminRoute from "../components/shared/ProtectAdminRoute";
 import { JobContext } from "../context/JobContext";
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
                     {
                         index: true,
                         element: <Profile />,
+                    },
+                    {
+                        path: "edit-profile/:id",
+                        element: <EditProfile />,
                     },
                     {
                         path: "stats",
