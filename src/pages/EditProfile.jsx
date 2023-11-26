@@ -10,13 +10,15 @@ const queryClient = new QueryClient();
 import { useForm } from "react-hook-form";
 
 import Swal from "sweetalert2";
-import { useParams } from "react-router-dom";
+
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useUserContext } from "../context/UserContext";
 
 const EditProfile = () => {
     const { id } = useParams();
-    const { user } = useUserContext();
+    const { user, handleFetchMe } = useUserContext();
+    const navigate = useNavigate();
 
     // const {
     //     isPending,
@@ -39,7 +41,48 @@ const EditProfile = () => {
         reset,
         formState: { errors },
     } = useForm();
-    const onSubmit = async (data) => {};
+
+    const onSubmit = async (data) => {
+        const { username, location, resume, gender } = data;
+        const updateUser = { email: user?.email };
+        try {
+            if (username) {
+                updateUser.username = username;
+            }
+            if (location) {
+                updateUser.location = location;
+            }
+            if (resume) {
+                updateUser.resume = resume;
+            }
+            if (gender) {
+                updateUser.gender = gender;
+            }
+
+            const response = await axios.patch(
+                `https://hunter-backend-dun.vercel.app/api/v1/users`,
+                updateUser,
+                {
+                    withCredentials: true,
+                }
+            );
+            reset();
+            handleFetchMe();
+            Swal.fire({
+                icon: "success",
+                title: "Done",
+                text: "Profile Updated",
+            });
+            navigate("/dashboard");
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: error?.message,
+            });
+        }
+    };
 
     // if (isPending) {
     //     return <LoadingComTwo />;
@@ -95,7 +138,7 @@ const EditProfile = () => {
                             <div className="row">
                                 <label htmlFor="email">Email</label>
                                 <input
-                                    type="text"
+                                    type="email"
                                     id="email"
                                     name="email"
                                     placeholder="Type Here"

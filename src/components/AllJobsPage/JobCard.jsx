@@ -30,8 +30,8 @@ const JobCard = ({ job }) => {
             jobId: id,
             status: "pending",
             dateOfApplication: date,
+            resume: user?.resume,
         };
-        console.log(appliedJob);
         try {
             const response = await postHandler({
                 url: "https://hunter-backend-dun.vercel.app/api/v1/application/apply",

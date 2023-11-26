@@ -61,10 +61,14 @@ const Recruiter = () => {
         });
     };
 
-    const handleResumeView = () => {
-        console.log("view");
+    const handleResumeView = (drive) => {
+        const newWindow = window.open(drive, "_blank");
+        if (newWindow) {
+            newWindow.focus();
+        } else {
+            alert("Please allow pop-ups for this site to open the PDF.");
+        }
     };
-
     if (isPending) {
         return <LoadingComTwo />;
     }
@@ -108,7 +112,7 @@ const Recruiter = () => {
                                         <button
                                             className="action resume"
                                             onClick={() =>
-                                                handleResumeView(job._id)
+                                                handleResumeView(job.resume)
                                             }
                                         >
                                             resume

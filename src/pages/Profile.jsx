@@ -56,7 +56,7 @@ const Profile = () => {
                             </tr>
                             <tr className="row">
                                 <td className="info">email :</td>
-                                <td className="value">{user?.email}</td>
+                                <td className="value email">{user?.email}</td>
                             </tr>
                             <tr className="row">
                                 <td className="info">Join :</td>
@@ -75,6 +75,12 @@ const Profile = () => {
                         </tbody>
                     </table>
                 </div>
+                {/* <p className="resume text-justify">
+                    <span className="info">resume</span>
+                    <span className="value overflow-hidden">
+                        {user?.resume}
+                    </span>
+                </p> */}
             </div>
             {/* <div className="wrapper">
                 <h5 className="title">Reset Password</h5>
@@ -152,6 +158,10 @@ const Wrapper = styled.section`
     }
     .information-table .value {
         width: calc(100% - 120px);
+    }
+    .information-table .value.email {
+        width: calc(100% - 120px);
+        text-transform: none;
     }
 
     th.row,
