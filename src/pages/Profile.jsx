@@ -18,7 +18,7 @@ dayjs.extend(advancedFormat);
 const Profile = () => {
     const { user } = useUserContext();
     const date = dayjs(user?.createdAt).format("MMM Do, YYYY");
-    console.log(user);
+
     return (
         <Wrapper>
             <div className="wrapper">
