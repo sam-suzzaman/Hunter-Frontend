@@ -16,9 +16,9 @@ const Admin = () => {
     if (isPending) {
         return <LoadingComTwo />;
     }
-    // if (data) {
-    //     console.log(data);
-    // }
+    if (data) {
+        console.log(data);
+    }
     return (
         <Wrapper>
             <div className="">
@@ -75,7 +75,7 @@ const Admin = () => {
                     {/* Recruiters */}
                     <div class="relative p-5 bg-gradient-to-r from-cyan-400 to-cyan-600 rounded-md overflow-hidden">
                         <div class="relative z-10 mb-4 text-white text-4xl leading-none font-semibold">
-                            {data?.admin}
+                            {data?.recruiter}
                         </div>
                         <div class="relative z-10 text-blue-100 leading-none font-semibold">
                             Recruiters
@@ -98,7 +98,7 @@ const Admin = () => {
                     {/* Members */}
                     <div class="relative p-5 bg-gradient-to-r from-blue-400 to-blue-600 rounded-md overflow-hidden">
                         <div class="relative z-10 mb-4 text-white text-4xl leading-none font-semibold">
-                            {data?.user}
+                            {data?.applicant}
                         </div>
                         <div class="relative z-10 text-blue-100 leading-none font-semibold">
                             Applicants
