@@ -30,6 +30,19 @@ const AdminLinks = [
         path: "manage-users",
         icon: <FaUsers />,
     },
+];
+
+const RecruiterLinks = [
+    {
+        text: "profile",
+        path: ".",
+        icon: <FiUser />,
+    },
+    {
+        text: "stats",
+        path: "stats",
+        icon: <IoIosStats />,
+    },
     {
         text: "manage jobs",
         path: "manage-jobs",
@@ -39,11 +52,6 @@ const AdminLinks = [
         text: "add job",
         path: "add-jobs",
         icon: <RiMenuAddFill />,
-    },
-    {
-        text: " Applications",
-        path: "my-jobs",
-        icon: <FaBriefcase />,
     },
 ];
 
@@ -60,4 +68,4 @@ const UserLinks = [
     },
 ];
 
-export { AdminLinks, UserLinks };
+export { AdminLinks, RecruiterLinks, UserLinks };

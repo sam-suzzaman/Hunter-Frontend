@@ -20,9 +20,12 @@ import {
     EditProfile,
     ManageUsers,
 } from "../pages";
-import ProtectAdminRoute from "../components/shared/ProtectAdminRoute";
+
 import { JobContext } from "../context/JobContext";
+
 import CommonProtectRoute from "../components/shared/CommonProtectRoute";
+import ProtectAdminRoute from "../components/shared/ProtectAdminRoute";
+import RecruiterRoute from "../components/shared/RecruiterRoute";
 
 const router = createBrowserRouter([
     {
@@ -91,17 +94,17 @@ const router = createBrowserRouter([
                     {
                         path: "add-jobs",
                         element: (
-                            <ProtectAdminRoute>
+                            <RecruiterRoute>
                                 <AddJob />
-                            </ProtectAdminRoute>
+                            </RecruiterRoute>
                         ),
                     },
                     {
                         path: "manage-jobs",
                         element: (
-                            <ProtectAdminRoute>
+                            <RecruiterRoute>
                                 <ManageJobs />
-                            </ProtectAdminRoute>
+                            </RecruiterRoute>
                         ),
                     },
                     {
@@ -123,14 +126,18 @@ const router = createBrowserRouter([
                     {
                         path: "edit-job/:id",
                         element: (
-                            <ProtectAdminRoute>
+                            <RecruiterRoute>
                                 <EditJob />
-                            </ProtectAdminRoute>
+                            </RecruiterRoute>
                         ),
                     },
                     {
                         path: "my-jobs",
-                        element: <MyJobs />,
+                        element: (
+                            <CommonProtectRoute>
+                                <MyJobs />
+                            </CommonProtectRoute>
+                        ),
                     },
                 ],
             },
