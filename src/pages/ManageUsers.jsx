@@ -1,16 +1,29 @@
 import React from "react";
-import { useJobContext } from "../context/JobContext";
+import { useUserContext } from "../context/UserContext";
 import LoadingComTwo from "../components/shared/LoadingComTwo";
 import { CiSquarePlus } from "react-icons/ci";
 import styled from "styled-components";
 
 import Swal from "sweetalert2";
+import { getAllHandler } from "../utils/FetchHandlers";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const ManageUsers = () => {
-    const { jobs, setJobs, jobLoading, handleJobFetch } = useJobContext();
+    const { user: me } = useUserContext();
+    const {
+        isPending,
+        isError,
+        data: users,
+        error,
+        refetch,
+    } = useQuery({
+        queryKey: ["users"],
+        queryFn: () =>
+            getAllHandler(`https://hunter-backend-dun.vercel.app/api/v1/users`),
+    });
 
     const updateUserModal = (id, role) => {
-        console.log(id, role);
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -27,34 +40,37 @@ const ManageUsers = () => {
     };
 
     const UpdateUserRole = async (id, role) => {
+        const updateUser = { id, role };
         try {
-            // const response = await axios.patch(
-            //     `https://hunter-backend-dun.vercel.app/api/v1/jobs/${id}`,
-            //     {
-            //         role,
-            //     },
-            //     { withCredentials: true }
-            // );
-
+            const response = await axios.patch(
+                `https://hunter-backend-dun.vercel.app/api/v1/admin/update-role`,
+                updateUser,
+                { withCredentials: true }
+            );
+            refetch();
             Swal.fire({
                 title: "Done!",
                 text: "Role Updated Successfully",
                 icon: "success",
             });
         } catch (error) {
+            console.log(error);
             Swal.fire({
                 title: "Sorry!",
-                text: error?.message,
+                text: error?.response?.data,
                 icon: "error",
             });
         }
     };
 
-    if (jobLoading) {
+    if (isPending) {
         return <LoadingComTwo />;
     }
+    if (users) {
+        // console.log(users);
+    }
 
-    if (!jobs?.result?.length) {
+    if (!users?.result?.length) {
         return (
             <h2 className="text-lg md:text-3xl font-bold text-red-600 text-center mt-12">
                 -- User List is Empty --
@@ -73,50 +89,69 @@ const ManageUsers = () => {
                         <tr>
                             <th>#</th>
                             <th>Username</th>
+                            <th>Email</th>
                             <th>Role</th>
                             <th>actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {jobs?.result?.map((job, index) => {
+                        {users?.result?.map((user, index) => {
                             let i =
                                 index + 1 < 10 ? `0${index + 1}` : index + 1;
                             return (
-                                <tr key={job._id}>
+                                <tr key={user._id}>
                                     <td>{i}</td>
-                                    <td>{job?.position}</td>
-                                    <td>{job?.company}</td>
+                                    <td>{user?.username}</td>
+                                    <td>{user?.email}</td>
+                                    <td>{user?.role}</td>
                                     <td className="action-row">
-                                        <button
-                                            className="action admin"
-                                            onClick={() =>
-                                                updateUserModal(
-                                                    job._id,
-                                                    "admin"
-                                                )
-                                            }
-                                        >
-                                            admin
-                                        </button>
-                                        <button
-                                            className="action recruiter"
-                                            onClick={() =>
-                                                updateUserModal(
-                                                    job._id,
-                                                    "recruiter"
-                                                )
-                                            }
-                                        >
-                                            recuiter
-                                        </button>
-                                        <button
-                                            className="action user"
-                                            onClick={() =>
-                                                updateUserModal(job._id, "user")
-                                            }
-                                        >
-                                            user
-                                        </button>
+                                        {user?._id === me._id ? null : (
+                                            <>
+                                                {" "}
+                                                {user?.role ===
+                                                "admin" ? null : (
+                                                    <button
+                                                        className="action admin"
+                                                        onClick={() =>
+                                                            updateUserModal(
+                                                                user._id,
+                                                                "admin"
+                                                            )
+                                                        }
+                                                    >
+                                                        admin
+                                                    </button>
+                                                )}
+                                                {user?.role ===
+                                                "recruiter" ? null : (
+                                                    <button
+                                                        className="action recruiter"
+                                                        onClick={() =>
+                                                            updateUserModal(
+                                                                user._id,
+                                                                "recruiter"
+                                                            )
+                                                        }
+                                                    >
+                                                        recuiter
+                                                    </button>
+                                                )}
+                                                {user?.role ===
+                                                "user" ? null : (
+                                                    <button
+                                                        className="action user"
+                                                        onClick={() =>
+                                                            updateUserModal(
+                                                                user._id,
+                                                                "user"
+                                                            )
+                                                        }
+                                                    >
+                                                        user
+                                                    </button>
+                                                )}
+                                            </>
+                                        )}
                                     </td>
                                 </tr>
                             );
