@@ -30,7 +30,7 @@ const JobCard = ({ job }) => {
             jobId: id,
             status: "pending",
             dateOfApplication: date,
-            resume: user?.resume,
+            resume: user?.resume || "",
         };
         try {
             const response = await postHandler({
@@ -44,11 +44,19 @@ const JobCard = ({ job }) => {
             });
         } catch (error) {
             console.log(error);
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: error?.response?.data,
-            });
+            if (error?.response?.data?.error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error?.response?.data?.error[0].msg,
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error?.response?.data,
+                });
+            }
         }
     };
     return (

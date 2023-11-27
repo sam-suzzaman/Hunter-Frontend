@@ -74,7 +74,11 @@ const Recruiter = () => {
     }
 
     if (isError) {
-        return <h2 className="">{error?.message}</h2>;
+        return (
+            <h2 className="mt-8 text-xl font-semibold text-center text-red-600">
+                -- {error?.response?.data} --
+            </h2>
+        );
     }
 
     if (jobs) {

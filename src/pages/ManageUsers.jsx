@@ -1,21 +1,16 @@
 import React from "react";
-import { CiSquarePlus } from "react-icons/ci";
-import styled from "styled-components";
 import { useJobContext } from "../context/JobContext";
 import LoadingComTwo from "../components/shared/LoadingComTwo";
-
-import { FaRegEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import { MdVisibility } from "react-icons/md";
+import { CiSquarePlus } from "react-icons/ci";
+import styled from "styled-components";
 
 import Swal from "sweetalert2";
-import axios from "axios";
-import { Link } from "react-router-dom";
 
-const ManageJobs = () => {
+const ManageUsers = () => {
     const { jobs, setJobs, jobLoading, handleJobFetch } = useJobContext();
 
-    const deleteModal = (id) => {
+    const updateUserModal = (id, role) => {
+        console.log(id, role);
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -23,29 +18,27 @@ const ManageJobs = () => {
             showCancelButton: true,
             confirmButtonColor: "#19b74b",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!",
+            confirmButtonText: "Yes",
         }).then((result) => {
             if (result.isConfirmed) {
-                deleteJobHandler(id);
+                UpdateUserRole(id, role);
             }
         });
     };
 
-    const deleteJobHandler = async (id) => {
+    const UpdateUserRole = async (id, role) => {
         try {
-            const response = await axios.delete(
-                `https://hunter-backend-dun.vercel.app/api/v1/jobs/${id}`,
-                { withCredentials: true }
-            );
+            // const response = await axios.patch(
+            //     `https://hunter-backend-dun.vercel.app/api/v1/jobs/${id}`,
+            //     {
+            //         role,
+            //     },
+            //     { withCredentials: true }
+            // );
 
-            // const updateJobs = jobs?.result?.filter((job) => job._id !== id);
-            // setJobs(updateJobs);
-            handleJobFetch(
-                `https://hunter-backend-dun.vercel.app/api/v1/jobs?page=1`
-            );
             Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
+                title: "Done!",
+                text: "Role Updated Successfully",
                 icon: "success",
             });
         } catch (error) {
@@ -64,14 +57,14 @@ const ManageJobs = () => {
     if (!jobs?.result?.length) {
         return (
             <h2 className="text-lg md:text-3xl font-bold text-red-600 text-center mt-12">
-                -- Job List is Empty --
+                -- User List is Empty --
             </h2>
         );
     }
     return (
         <Wrapper>
             <div className="title-row">
-                Manage Jobs
+                Manage Users
                 <CiSquarePlus className="ml-1 text-xl md:text-2xl" />
             </div>
             <div className="content-row">
@@ -79,8 +72,8 @@ const ManageJobs = () => {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Job Position</th>
-                            <th>Company</th>
+                            <th>Username</th>
+                            <th>Role</th>
                             <th>actions</th>
                         </tr>
                     </thead>
@@ -94,23 +87,35 @@ const ManageJobs = () => {
                                     <td>{job?.position}</td>
                                     <td>{job?.company}</td>
                                     <td className="action-row">
-                                        <Link
-                                            to={`/job/${job._id}`}
-                                            className="action view"
-                                        >
-                                            <MdVisibility />
-                                        </Link>
-                                        <Link
-                                            to={`/dashboard/edit-job/${job._id}`}
-                                            className="action edit"
-                                        >
-                                            <FaRegEdit />
-                                        </Link>
                                         <button
-                                            className="action delete"
-                                            onClick={() => deleteModal(job._id)}
+                                            className="action admin"
+                                            onClick={() =>
+                                                updateUserModal(
+                                                    job._id,
+                                                    "admin"
+                                                )
+                                            }
                                         >
-                                            <MdDelete />
+                                            admin
+                                        </button>
+                                        <button
+                                            className="action recruiter"
+                                            onClick={() =>
+                                                updateUserModal(
+                                                    job._id,
+                                                    "recruiter"
+                                                )
+                                            }
+                                        >
+                                            recuiter
+                                        </button>
+                                        <button
+                                            className="action user"
+                                            onClick={() =>
+                                                updateUserModal(job._id, "user")
+                                            }
+                                        >
+                                            user
                                         </button>
                                     </td>
                                 </tr>
@@ -191,17 +196,21 @@ const Wrapper = styled.section`
         column-gap: 12px;
     }
     .table .action-row .action {
-        font-size: 21px;
+        font-size: 16px;
+        padding: 1px 8px;
+        border-radius: 4px;
+        color: #fff;
+        text-transform: capitalize;
     }
-    .action.view {
-        color: #22d637;
+    .action.recruiter {
+        background-color: #ac04ac;
     }
-    .action.edit {
-        color: #f1c72f;
+    .action.admin {
+        background-color: #5f14c7;
     }
-    .action.delete {
-        color: #f1322f;
+    .action.user {
+        background-color: #c714c7;
     }
 `;
 
-export default ManageJobs;
+export default ManageUsers;

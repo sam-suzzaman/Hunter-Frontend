@@ -7,6 +7,7 @@ import { FiUser } from "react-icons/fi";
 import { FaUserShield } from "react-icons/fa";
 import { MdManageAccounts } from "react-icons/md";
 import { FaBriefcase } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa6";
 
 const AdminLinks = [
     {
@@ -20,14 +21,14 @@ const AdminLinks = [
         icon: <IoIosStats />,
     },
     {
-        text: " Applications",
-        path: "my-jobs",
-        icon: <FaBriefcase />,
+        text: "admin",
+        path: "admin",
+        icon: <FaUserShield />,
     },
     {
-        text: "add job",
-        path: "add-jobs",
-        icon: <RiMenuAddFill />,
+        text: "manage users",
+        path: "manage-users",
+        icon: <FaUsers />,
     },
     {
         text: "manage jobs",
@@ -35,9 +36,14 @@ const AdminLinks = [
         icon: <MdManageAccounts />,
     },
     {
-        text: "admin",
-        path: "admin",
-        icon: <FaUserShield />,
+        text: "add job",
+        path: "add-jobs",
+        icon: <RiMenuAddFill />,
+    },
+    {
+        text: " Applications",
+        path: "my-jobs",
+        icon: <FaBriefcase />,
     },
 ];
 
