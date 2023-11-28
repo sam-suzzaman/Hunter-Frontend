@@ -14,7 +14,8 @@ const Applicant = () => {
         queryKey: ["my-jobs"],
         queryFn: async () => {
             const response = await axios.get(
-                `https://hunter-backend-dun.vercel.app/api/v1/application/applicant-jobs`
+                `https://hunter-backend-dun.vercel.app/api/v1/application/applicant-jobs`,
+                { withCredentials: true }
             );
             return response?.data?.result;
         },

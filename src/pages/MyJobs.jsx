@@ -1,10 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { CiSquarePlus } from "react-icons/ci";
 import styled from "styled-components";
-import { getAllHandler } from "../utils/FetchHandlers";
-import { useQuery } from "@tanstack/react-query";
-import LoadingComTwo from "../components/shared/LoadingComTwo";
-import axios from "axios";
 
 import { useUserContext } from "../context/UserContext";
 import Applicant from "../components/MyJobsPage/Applicant";
@@ -16,12 +12,12 @@ const MyJobs = () => {
     return (
         <Wrapper>
             <div className="title-row">
-                {user?.role === "admin" && "Manage Applications"}
+                {user?.role === "recruiter" && "Manage Applications"}
                 {user?.role === "user" && "My Applications"}
                 <CiSquarePlus className="ml-1 text-xl md:text-2xl" />
             </div>
             {user?.role === "user" && <Applicant />}
-            {user?.role === "admin" && <Recruiter />}
+            {user?.role === "recruiter" && <Recruiter />}
         </Wrapper>
     );
 };

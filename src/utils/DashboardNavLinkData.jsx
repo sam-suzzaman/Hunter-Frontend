@@ -39,9 +39,9 @@ const RecruiterLinks = [
         icon: <FiUser />,
     },
     {
-        text: "stats",
-        path: "stats",
-        icon: <IoIosStats />,
+        text: "add job",
+        path: "add-jobs",
+        icon: <RiMenuAddFill />,
     },
     {
         text: "manage jobs",
@@ -49,9 +49,9 @@ const RecruiterLinks = [
         icon: <MdManageAccounts />,
     },
     {
-        text: "add job",
-        path: "add-jobs",
-        icon: <RiMenuAddFill />,
+        text: "Applications",
+        path: "my-jobs",
+        icon: <FaBriefcase />,
     },
 ];
 

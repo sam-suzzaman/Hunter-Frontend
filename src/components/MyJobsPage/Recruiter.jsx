@@ -19,7 +19,10 @@ const Recruiter = () => {
         queryKey: ["rec-jobs"],
         queryFn: async () => {
             const response = await axios.get(
-                `https://hunter-backend-dun.vercel.app/api/v1/application/recruiter-jobs`
+                `https://hunter-backend-dun.vercel.app/api/v1/application/recruiter-jobs`,
+                {
+                    withCredentials: true,
+                }
             );
             return response?.data?.result;
         },
@@ -75,7 +78,7 @@ const Recruiter = () => {
 
     if (isError) {
         return (
-            <h2 className="mt-8 text-xl font-semibold text-center text-red-600">
+            <h2 className="mt-8 text-2xl font-semibold text-center text-red-600">
                 -- {error?.response?.data} --
             </h2>
         );
@@ -86,7 +89,7 @@ const Recruiter = () => {
     }
 
     if (!jobs?.length === 0) {
-        return <h2 className="">No job found</h2>;
+        return <h2 className="">No Application found</h2>;
     }
 
     return (
