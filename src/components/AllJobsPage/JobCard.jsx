@@ -13,7 +13,6 @@ dayjs.extend(advancedFormat);
 import { useUserContext } from "../../context/UserContext";
 
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { postHandler } from "../../utils/FetchHandlers";
 import Swal from "sweetalert2";
 
@@ -94,7 +93,7 @@ const JobCard = ({ job }) => {
                     <Link to={`/job/${job._id}`} className="detail-btn">
                         details
                     </Link>
-                    {user?._id !== job?.createdBy ? (
+                    {user?.role === "user" ? (
                         <button
                             className="apply-btn"
                             onClick={() => handleApply(job._id)}
