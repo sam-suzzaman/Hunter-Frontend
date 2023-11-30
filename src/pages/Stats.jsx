@@ -74,7 +74,7 @@ const Stats = () => {
     }
 
     if (data) {
-        console.log(data?.defaultStats);
+        console.log(data);
     }
     return (
         <Wrapper>

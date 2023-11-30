@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 
 // import { DayPicker } from "react-day-picker";
 // import { format } from "date-fns";
-import "react-day-picker/dist/style.css";
+// import "react-day-picker/dist/style.css";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";

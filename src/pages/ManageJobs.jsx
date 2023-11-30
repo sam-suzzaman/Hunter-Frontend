@@ -11,9 +11,23 @@ import { MdVisibility } from "react-icons/md";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getAllHandler } from "../utils/FetchHandlers";
 
 const ManageJobs = () => {
-    const { jobs, setJobs, jobLoading, handleJobFetch } = useJobContext();
+    const {
+        isPending,
+        isError,
+        data: jobs,
+        error,
+        refetch,
+    } = useQuery({
+        queryKey: ["my-jobs"],
+        queryFn: () =>
+            getAllHandler(
+                `https://hunter-backend-dun.vercel.app/api/v1/jobs/my-jobs`
+            ),
+    });
 
     const deleteModal = (id) => {
         Swal.fire({
@@ -40,9 +54,10 @@ const ManageJobs = () => {
 
             // const updateJobs = jobs?.result?.filter((job) => job._id !== id);
             // setJobs(updateJobs);
-            handleJobFetch(
-                `https://hunter-backend-dun.vercel.app/api/v1/jobs?page=1`
-            );
+            // handleJobFetch(
+            //     `https://hunter-backend-dun.vercel.app/api/v1/jobs?page=1`
+            // );
+            refetch();
             Swal.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",
@@ -57,8 +72,17 @@ const ManageJobs = () => {
         }
     };
 
-    if (jobLoading) {
+    if (isPending) {
         return <LoadingComTwo />;
+    }
+
+    if (isError) {
+        console.log(error?.message);
+        return (
+            <h2 className="text-lg md:text-3xl font-bold text-red-600 text-center mt-12">
+                {error?.message}
+            </h2>
+        );
     }
 
     if (!jobs?.result?.length) {
@@ -81,6 +105,7 @@ const ManageJobs = () => {
                             <th>#</th>
                             <th>Job Position</th>
                             <th>Company</th>
+                            <th>Created By</th>
                             <th>actions</th>
                         </tr>
                     </thead>
@@ -93,6 +118,7 @@ const ManageJobs = () => {
                                     <td>{i}</td>
                                     <td>{job?.position}</td>
                                     <td>{job?.company}</td>
+                                    <td>{job?.createdBy?.username}</td>
                                     <td className="action-row">
                                         <Link
                                             to={`/job/${job._id}`}

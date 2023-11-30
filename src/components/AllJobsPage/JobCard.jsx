@@ -93,14 +93,15 @@ const JobCard = ({ job }) => {
                     <Link to={`/job/${job._id}`} className="detail-btn">
                         details
                     </Link>
-                    {user?.role === "user" ? (
+                    {user?.role === "user" && (
                         <button
                             className="apply-btn"
                             onClick={() => handleApply(job._id)}
                         >
                             Apply
                         </button>
-                    ) : (
+                    )}
+                    {user?._id === job?.createdBy && (
                         <Link
                             to={`/dashboard/edit-job/${job._id}`}
                             className="detail-btn"
