@@ -2,6 +2,18 @@
 
 [Live Site](https://hunter-iota.vercel.app/)
 
+### Access Credentials:
+
+-   Admin:
+    -   admin1@gmail.com
+    -   12345678
+-   Recruiter:
+    -   recruiter1@gmail.com
+    -   12345678
+-   User:
+    -user1@gmail.com
+    -   12345678
+
 ### \_ Description:
 
 This is a Job Portal Web Application which is MERN Stack based application. This application has all the functions of managing the user of the application including posting a job, applying for that job and accepting or rejecting the application. Now we will see the function of the complete application part by part.
